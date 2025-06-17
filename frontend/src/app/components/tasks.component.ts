@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
-import { Task } from '../models/task.model';
+import { Task, CreateTaskRequest } from '../models/task.model';
 import { FamilyMember } from '../models/family-member.model';
 import { TaskService } from '../services/task.service';
 import { FamilyService } from '../services/family.service';
@@ -39,10 +39,14 @@ export class TasksComponent implements OnInit, OnDestroy {
   };
 
   categories = [
-    { key: 'casa', value: 'Casa' },
-    { key: 'escuela', value: 'Escuela' },
-    { key: 'personal', value: 'Personal' },
-    { key: 'general', value: 'General' }
+    { key: 'cocina', value: 'Cocina' },
+    { key: 'limpieza', value: 'Limpieza' },
+    { key: 'jardin', value: 'Jardín' },
+    { key: 'mascotas', value: 'Mascotas' },
+    { key: 'estudio', value: 'Estudio' },
+    { key: 'deporte', value: 'Deporte' },
+    { key: 'ayuda', value: 'Ayuda' },
+    { key: 'otro', value: 'Otro' }
   ];
 
   private subscriptions: Subscription[] = [];
@@ -82,16 +86,17 @@ export class TasksComponent implements OnInit, OnDestroy {
 
     this.isCreatingTask = true;
 
-    const sub = this.taskService.createTask(this.newTask as Task).subscribe({
+    const sub = this.taskService.createTask(this.newTask as CreateTaskRequest).subscribe({
       next: (task) => {
-        this.tasks.push(task);
+        // No agregamos manualmente a this.tasks porque el servicio ya actualiza el tasksSubject
+        // y el componente está suscrito a getTasks() que refleja esos cambios automáticamente
+        // No mostramos notificación porque el servicio ya lo hace
         this.resetForm();
-        this.notificationService.showSuccess('✅ Tarea creada exitosamente');
         this.isCreatingTask = false;
       },
       error: (error) => {
         console.error('Error creating task:', error);
-        this.notificationService.showError('❌ Error al crear la tarea');
+        // El servicio ya maneja la notificación de error
         this.isCreatingTask = false;
       }
     });
@@ -113,17 +118,14 @@ export class TasksComponent implements OnInit, OnDestroy {
 
     const sub = this.taskService.updateTask(this.editingTask.id, this.newTask as Task).subscribe({
       next: (updatedTask) => {
-        const index = this.tasks.findIndex(t => t.id === this.editingTask!.id);
-        if (index !== -1) {
-          this.tasks[index] = updatedTask;
-        }
+        // No manipulamos manualmente this.tasks porque el servicio ya actualiza el tasksSubject
+        // No mostramos notificación porque el servicio ya lo hace
         this.resetForm();
-        this.notificationService.showSuccess('✅ Tarea actualizada exitosamente');
         this.isCreatingTask = false;
       },
       error: (error) => {
         console.error('Error updating task:', error);
-        this.notificationService.showError('❌ Error al actualizar la tarea');
+        // El servicio ya maneja la notificación de error
         this.isCreatingTask = false;
       }
     });
@@ -137,12 +139,12 @@ export class TasksComponent implements OnInit, OnDestroy {
 
     const sub = this.taskService.deleteTask(taskId).subscribe({
       next: () => {
-        this.tasks = this.tasks.filter(t => t.id !== taskId);
-        this.notificationService.showSuccess('✅ Tarea eliminada exitosamente');
+        // No manipulamos manualmente this.tasks porque el servicio ya actualiza el tasksSubject
+        // No mostramos notificación porque el servicio ya lo hace
       },
       error: (error) => {
         console.error('Error deleting task:', error);
-        this.notificationService.showError('❌ Error al eliminar la tarea');
+        // El servicio ya maneja la notificación de error
       }
     });
     this.subscriptions.push(sub);

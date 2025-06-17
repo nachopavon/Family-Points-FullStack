@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
@@ -65,9 +66,14 @@ interface FamilyStats {
             <span class="stat">📋 {{ totalTasks$ | async }} tareas disponibles</span>
           </div>
         </div>
-        <button class="btn-edit" (click)="toggleEdit()">
-          {{ isEditing ? '❌ Cancelar' : '✏️ Editar Perfil' }}
-        </button>
+        <div class="header-actions">
+          <button class="btn-edit" (click)="toggleEdit()">
+            {{ isEditing ? '❌ Cancelar' : '✏️ Editar Perfil' }}
+          </button>
+          <button class="btn-logout" (click)="logout()">
+            🚪 Cerrar Sesión
+          </button>
+        </div>
       </div>
 
       <div class="profile-content">
@@ -395,6 +401,30 @@ interface FamilyStats {
     .btn-edit:hover {
       background: rgba(255,255,255,0.3);
       transform: translateY(-2px);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-logout {
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+      border: 2px solid rgba(220, 53, 69, 0.5);
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-logout:hover {
+      background: rgba(220, 53, 69, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
     }
 
     .profile-content {
@@ -1032,7 +1062,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private familyService: FamilyService,
     private taskService: TaskService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {
     this.totalMembers$ = this.familyService.getMembers().pipe(map(members => members.length));
     this.totalTasks$ = this.taskService.getTasks().pipe(map(tasks => tasks.length));
@@ -1386,6 +1417,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.isSaving = false;
       }
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth']);
   }
 
   exportData(): void {
