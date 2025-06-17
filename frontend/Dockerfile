@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Construir la aplicación para producción
-RUN npm run build --prod
+RUN npm run build -- --configuration=production
 
 # Etapa 2: Servir con nginx
 FROM nginx:alpine
