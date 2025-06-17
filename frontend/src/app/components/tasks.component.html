@@ -1,0 +1,128 @@
+<div class="tasks-container">
+  <div class="tasks-header">
+    <h2>📋 Gestión de Tareas</h2>
+    <button class="btn-create" (click)="showAddTaskForm = !showAddTaskForm">
+      {{ showAddTaskForm ? '❌ Cancelar' : '➕ Nueva Tarea' }}
+    </button>
+  </div>
+
+  <!-- Formulario para crear/editar tareas -->
+  <div class="task-form" *ngIf="showAddTaskForm">
+    <h3>{{ editingTask ? '✏️ Editar Tarea' : '➕ Crear Nueva Tarea' }}</h3>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="task-name">📝 Nombre de la tarea:</label>
+        <input
+          id="task-name"
+          type="text"
+          [(ngModel)]="newTask.name"
+          placeholder="Ej: Lavar los platos"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="task-points">🎯 Puntos:</label>
+        <input
+          id="task-points"
+          type="number"
+          [(ngModel)]="newTask.points"
+          placeholder="10"
+          min="1"
+          max="100"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="task-category">📂 Categoría:</label>
+        <select id="task-category" [(ngModel)]="newTask.category" required>
+          <option value="">Seleccionar categoría</option>
+          <option *ngFor="let category of categories; trackBy: trackByCategory" [value]="category.key">
+            {{ category.value }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="task-icon">😊 Emoji:</label>
+        <div class="emoji-selector">
+          <input
+            id="task-icon"
+            type="text"
+            [(ngModel)]="newTask.icon"
+            placeholder="📝"
+            maxlength="2">
+          <div class="emoji-options">
+            <button
+              type="button"
+              *ngFor="let emoji of getEmojiSuggestions()"
+              class="emoji-option"
+              (click)="selectEmoji(emoji)">
+              {{ emoji }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="task-description">📄 Descripción:</label>
+        <textarea
+          id="task-description"
+          [(ngModel)]="newTask.description"
+          placeholder="Descripción de la tarea (opcional)"
+          rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="cancelAddTask()">
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="btn-save"
+        (click)="editingTask ? updateTask() : addTask()"
+        [disabled]="!isValidTask() || isCreatingTask">
+        <span *ngIf="isCreatingTask">🔄 {{ editingTask ? 'Actualizando...' : 'Creando...' }}</span>
+        <span *ngIf="!isCreatingTask">💾 {{ editingTask ? 'Actualizar' : 'Crear' }} Tarea</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Lista de tareas -->
+  <div class="tasks-list">
+    <div
+      *ngFor="let task of tasks; trackBy: trackByTaskId"
+      class="task-card"
+      [class]="task.category">
+
+      <div class="task-header">
+        <div class="task-info">
+          <h4>{{ task.icon }} {{ task.name }}</h4>
+          <div class="task-meta">
+            <span class="meta-item">🎯 {{ task.points }} puntos</span>
+            <span class="meta-item">📂 {{ getCategoryName(task.category) }}</span>
+            <span class="meta-item" *ngIf="task.is_default">🔧 Por defecto</span>
+          </div>
+          <p class="task-description" *ngIf="task.description">{{ task.description }}</p>
+        </div>
+
+        <div class="task-actions">
+          <button class="btn-edit" (click)="editTask(task)" title="Editar tarea">
+            ✏️
+          </button>
+          <button class="btn-delete" (click)="deleteTask(task.id)" title="Eliminar tarea">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="no-tasks" *ngIf="tasks.length === 0">
+    <div class="no-tasks-icon">📝</div>
+    <h3>No hay tareas disponibles</h3>
+    <p>¡Crea tu primera tarea para empezar!</p>
+  </div>
+</div>

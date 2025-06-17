@@ -1,0 +1,233 @@
+/* Contenedor principal moderno */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-light);
+  position: relative;
+}
+
+.app-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: var(--background-primary);
+  z-index: -1;
+}
+
+/* Header moderno y vibrante */
+.header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  color: var(--text-primary); // Mejor contraste para el header
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 2px 8px rgba(44, 62, 80, 0.22); // Sombra más marcada
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary); // Título más oscuro para contraste
+  text-shadow: 0 4px 24px rgba(44, 62, 80, 0.28), 0 1px 0 #fff; // Sombra y brillo sutil desenfadado
+}
+
+.header p {
+  font-size: 1.25rem;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-secondary); // Subtítulo más oscuro para contraste
+  text-shadow: 0 1px 2px rgba(255,255,255,0.7); // Sombra clara para desenfado
+}
+
+/* Navegación moderna con glassmorphism */
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.92); // Más opaco para mejor contraste
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-card);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin: 0 2rem;
+  border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+}
+
+.nav-button {
+  padding: 1rem 2rem;
+  border: 2px solid #e0e0e0; // Gris claro para mejor visibilidad
+  background: rgba(255, 255, 255, 0.85); // Más opaco para contraste
+  color: var(--text-primary); // Mejor contraste sobre fondo claro
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.15); // Sombra clara desenfadada
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-purple);
+  transition: left 0.5s;
+  opacity: 0.1;
+}
+
+.nav-button:hover::before {
+  left: 100%;
+}
+
+.nav-button:hover {
+  border-color: var(--primary-purple);
+  color: var(--primary-purple); // Color vibrante en hover
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  background: #fff;
+}
+
+.nav-button.active {
+  background: var(--gradient-purple);
+  border-color: var(--primary-purple);
+  color: var(--text-white); // Texto blanco sobre gradiente
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+  text-shadow: 0 2px 8px rgba(44, 62, 80, 0.18); // Sombra para legibilidad
+}
+
+.nav-button.active::before {
+  display: none;
+}
+
+/* Contenido principal moderno */
+.main-content {
+  flex: 1;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  min-height: 60vh;
+}
+
+/* Responsive moderno */
+@media (max-width: 968px) {
+  .navigation {
+    margin: 0 1rem;
+    gap: 0.5rem;
+  }
+
+  .nav-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container::before {
+    height: 200px;
+  }
+
+  .header {
+    padding: 2rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 2.25rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .navigation {
+    flex-wrap: wrap;
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+
+  .nav-button {
+    flex: 1;
+    min-width: 140px;
+    justify-content: center;
+  }
+
+  .main-content {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.875rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navigation {
+    flex-direction: column;
+    margin: 0 0.5rem;
+    padding: 1rem;
+  }
+
+  .nav-button {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    width: 100%;
+  }
+
+  .main-content {
+    padding: 1.5rem 0.5rem;
+  }
+}

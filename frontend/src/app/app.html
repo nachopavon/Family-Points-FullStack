@@ -1,0 +1,59 @@
+<!-- Vista de autenticación cuando no está logueado -->
+<div *ngIf="!isLoggedIn">
+  <app-auth></app-auth>
+</div>
+
+<!-- Vista principal cuando está logueado -->
+<div *ngIf="isLoggedIn" class="app-container">
+  <header class="header">
+    <h1>🏆 Family Points</h1>
+    <p>{{currentUser?.family_name}} - Gestiona los puntos familiares</p>
+  </header>
+
+  <nav class="navigation">
+    <button
+      class="nav-button"
+      [class.active]="currentView === 'tasks'"
+      (click)="setCurrentView('tasks')">
+      📋 Tareas
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="currentView === 'family'"
+      (click)="setCurrentView('family')">
+      👨‍👩‍👧‍👦 Familia
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="currentView === 'leaderboard'"
+      (click)="setCurrentView('leaderboard')">
+      🏅 Ranking
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="currentView === 'profile'"
+      (click)="setCurrentView('profile')">
+      {{currentUser?.avatar}} Perfil
+    </button>
+  </nav>
+
+  <main class="main-content">
+    @switch (currentView) {
+      @case ('tasks') {
+        <app-tasks></app-tasks>
+      }
+      @case ('family') {
+        <app-family></app-family>
+      }
+      @case ('leaderboard') {
+        <app-leaderboard></app-leaderboard>
+      }
+      @case ('profile') {
+        <app-user-profile></app-user-profile>
+      }
+    }
+  </main>
+</div>
+
+<!-- Componente de notificaciones -->
+<app-notifications></app-notifications>

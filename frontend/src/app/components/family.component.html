@@ -1,0 +1,127 @@
+<div class="family-container">
+  <div class="family-header">
+    <h2>👨‍👩‍👧‍👦 Gestión de Familia</h2>
+    <button class="btn-add-member" (click)="showAddMemberForm = !showAddMemberForm">
+      {{ showAddMemberForm ? '❌ Cancelar' : '➕ Nuevo Miembro' }}
+    </button>
+  </div>
+
+  <!-- Formulario para crear/editar miembros -->
+  <div class="member-form" *ngIf="showAddMemberForm">
+    <h3>{{ editingMember ? '✏️ Editar Miembro' : '➕ Agregar Nuevo Miembro' }}</h3>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="member-name">👤 Nombre:</label>
+        <input
+          id="member-name"
+          type="text"
+          [(ngModel)]="newMember.name"
+          placeholder="Ej: María"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="member-role">👔 Rol:</label>
+        <select id="member-role" [(ngModel)]="newMember.role" required>
+          <option value="">Seleccionar rol</option>
+          <option value="padre">Padre</option>
+          <option value="madre">Madre</option>
+          <option value="hijo">Hijo/a</option>
+          <option value="abuelo">Abuelo/a</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
+
+      <div class="form-group full-width">
+        <label>🎭 Avatar:</label>
+        <div class="avatar-selector">
+          <button
+            type="button"
+            *ngFor="let avatar of avatarOptions; trackBy: trackByAvatar"
+            class="avatar-option"
+            [class.selected]="newMember.avatar === avatar"
+            (click)="selectAvatar(avatar)">
+            {{avatar}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="cancelAddMember()">
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="btn-save"
+        (click)="editingMember ? updateMember() : addMember()"
+        [disabled]="!isValidMember() || isSaving">
+        <span *ngIf="isSaving">🔄 {{ editingMember ? 'Actualizando...' : 'Guardando...' }}</span>
+        <span *ngIf="!isSaving">💾 {{ editingMember ? 'Actualizar' : 'Guardar' }} Miembro</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Lista de miembros -->
+  <div class="members-list">
+    <div
+      *ngFor="let member of members$ | async; trackBy: trackByMemberId"
+      class="member-card">
+
+      <div class="member-header">
+        <div class="member-avatar">{{ member.avatar || getInitials(member.name) }}</div>
+        <h3 class="member-name">{{ member.name }}</h3>
+        <p class="member-role">{{ member.role }}</p>
+      </div>
+
+      <div class="member-stats">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-value">{{ memberStats[member.id]?.points || 0 }}</span>
+            <span class="stat-label">Puntos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">{{ memberStats[member.id]?.tasks || 0 }}</span>
+            <span class="stat-label">Tareas</span>
+          </div>
+        </div>
+
+        <div class="member-actions">
+          <button class="btn-edit" (click)="editMember(member)" title="Editar miembro">
+            ✏️
+          </button>
+          <button class="btn-delete" (click)="deleteMember(member.id)" title="Eliminar miembro">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ranking de la familia -->
+  <div class="leaderboard-section">
+    <h3>🏆 Ranking Familiar</h3>
+    <div class="leaderboard">
+      <div
+        *ngFor="let member of members$ | async; let i = index; trackBy: trackByMemberId"
+        class="leaderboard-item">
+        <span class="rank" [class.first]="i === 0" [class.second]="i === 1" [class.third]="i === 2">
+          #{{ i + 1 }}
+        </span>
+        <div class="member-info">
+          <div class="mini-avatar">{{ member.avatar || getInitials(member.name) }}</div>
+          <span class="member-name-small">{{ member.name }}</span>
+        </div>
+        <span class="points-badge">{{ memberStats[member.id]?.points || 0 }} pts</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div class="no-members" *ngIf="(members$ | async)?.length === 0">
+    <div class="no-members-icon">👨‍👩‍👧‍👦</div>
+    <h3>No hay miembros en la familia</h3>
+    <p>¡Agrega tu primer miembro para empezar!</p>
+  </div>
+</div>

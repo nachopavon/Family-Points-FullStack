@@ -1,0 +1,19 @@
+{
+  "name": "family-points-fullstack",
+  "version": "1.0.0",
+  "description": "Family Points - Fullstack Application",
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && ng serve",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "build:frontend": "cd frontend && ng build",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && ng test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
