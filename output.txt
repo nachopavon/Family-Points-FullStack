@@ -1,5 +1,17 @@
- Container family-points-backend  Running
- Container family-points-frontend  Recreate
- Container family-points-frontend  Recreated
- Container family-points-frontend  Starting
- Container family-points-frontend  Started
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 22472    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 OK
+Server: nginx/1.27.4
+Date: Tue, 17 Jun 2025 16:03:23 GMT
+Content-Type: text/html
+Content-Length: 22472
+Last-Modified: Tue, 17 Jun 2025 16:02:30 GMT
+Connection: keep-alive
+ETag: "68519196-57c8"
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer-when-downgrade
+Content-Security-Policy: default-src 'self' http: https: data: blob: 'unsafe-inline'
+Accept-Ranges: bytes
+
