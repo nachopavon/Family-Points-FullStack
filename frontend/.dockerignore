@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+dist
+.angular
+.env
+*.log
+.DS_Store
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+e2e
+src/**/*.spec.ts

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Backend Development Service
+  backend-dev:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: family-points-backend-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - JWT_SECRET=family-points-secret-dev
+      - PORT=3000
+      - DB_PATH=/app/data/database.sqlite
+    volumes:
+      - ./backend:/app
+      - backend_dev_data:/app/data
+      - /app/node_modules
+    networks:
+      - family-points-dev-network
+    command: ["npm", "run", "dev"]
+
+  # Frontend Development Service
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: family-points-frontend-dev
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend-dev
+    networks:
+      - family-points-dev-network
+    command: ["npm", "start", "--", "--host", "0.0.0.0", "--poll", "2000"]
+
+volumes:
+  backend_dev_data:
+    driver: local
+
+networks:
+  family-points-dev-network:
+    driver: bridge

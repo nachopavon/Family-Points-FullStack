@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-api-domain.com/api', // URL de producción
+  apiUrl: '/api',  // Usa proxy de nginx en Docker
   apiTimeout: 30000
 };
