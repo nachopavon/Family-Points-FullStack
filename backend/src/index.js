@@ -76,6 +76,9 @@ const { errorHandler } = require('./middleware/errorHandler');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configurar trust proxy para usar detrás de nginx/proxy reverso
+app.set('trust proxy', 1);
+
 // Configuración de Swagger/OpenAPI
 const swaggerOptions = {
   definition: {

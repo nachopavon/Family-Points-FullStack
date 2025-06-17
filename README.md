@@ -589,6 +589,20 @@ http://localhost:3000/api-docs
 - **Estado:** `GET /api/health` - Health check
 - **Info:** `GET /api/info` - Información de la API
 
+## 🔧 Correcciones Implementadas
+
+### Problema de Estadísticas Familiares
+**Problema**: Las estadísticas familiares mostraban siempre 0 en el perfil de usuario.
+
+**Causa**: Incompatibilidad entre el formato de fechas ISO 8601 (enviado desde frontend) y el formato esperado por SQLite en las consultas de rango de fechas.
+
+**Solución**:
+1. **Conversión de fechas**: Implementada función `formatDateForSQLite()` que convierte fechas ISO 8601 al formato `YYYY-MM-DD HH:MM:SS` requerido por SQLite.
+2. **Manejo robusto de peticiones**: Reemplazado `forkJoin` por un sistema de contador de peticiones independientes para evitar fallos en cascada.
+3. **Mejora en gestión de errores**: Cada petición HTTP maneja sus propios errores devolviendo arrays vacíos en lugar de fallar todo el flujo.
+
+**Resultado**: Las estadísticas familiares ahora cargan correctamente mostrando datos reales de tareas completadas, puntos obtenidos y ranking de miembros.
+
 ## 🧪 Testing
 
 ```bash

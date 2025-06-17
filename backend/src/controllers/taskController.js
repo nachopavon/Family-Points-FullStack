@@ -663,10 +663,23 @@ class TaskController {
         });
       }
 
-      const completedTasks = await CompletedTask.findByDateRange(userId, startDate, endDate, {
-        memberId,
-        limit: parseInt(limit)
-      });
+      // Convertir las fechas al formato SQLite (YYYY-MM-DD HH:MM:SS)
+      const formatDateForSQLite = (date) => {
+        return date.toISOString().replace('T', ' ').replace('Z', '');
+      };
+
+      const formattedStartDate = formatDateForSQLite(startDate);
+      const formattedEndDate = formatDateForSQLite(endDate);
+
+      const completedTasks = await CompletedTask.findByDateRange(
+        userId, 
+        formattedStartDate, 
+        formattedEndDate, 
+        {
+          memberId,
+          limit: parseInt(limit)
+        }
+      );
       
       res.json(completedTasks);
 

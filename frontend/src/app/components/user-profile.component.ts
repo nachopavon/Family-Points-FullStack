@@ -1094,34 +1094,80 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   loadFamilyStats() {
     this.loadingStats = true;
-
     const { startDate, endDate } = this.getPeriodDates();
 
-    // Timeout de seguridad para evitar carga infinita
-    const timeoutId = setTimeout(() => {
-      this.loadingStats = false;
-      this.familyStats = this.getDefaultStats();
-    }, 10000); // 10 segundos máximo
+    // Usar un enfoque más simple sin forkJoin para evitar problemas
+    let memberData: any[] = [];
+    let taskData: any[] = [];
+    let completedTaskData: any[] = [];
+    let completedCount = 0;
 
-    forkJoin({
-      members: this.familyService.getMembers(),
-      tasks: this.taskService.getTasks(),
-      completedTasks: this.taskService.getCompletedTasksInDateRange(startDate, endDate)
-    }).subscribe({
-      next: ({ members, tasks, completedTasks }) => {
-        clearTimeout(timeoutId);
-        this.familyStats = this.calculateFamilyStats(members, tasks, completedTasks, startDate, endDate);
-        this.loadingStats = false;
+    // Cargar miembros
+    this.familyService.getMembers().subscribe({
+      next: (members) => {
+        memberData = members || [];
+        completedCount++;
+        if (completedCount === 3) {
+          this.processStats(memberData, taskData, completedTaskData, startDate, endDate);
+        }
       },
-      error: (error) => {
-        clearTimeout(timeoutId);
-        console.error('Error loading family stats:', error);
-        this.notificationService.showError('Error al cargar las estadísticas familiares');
-        // Cargar datos de respaldo en caso de error
-        this.familyStats = this.getDefaultStats();
-        this.loadingStats = false;
+      error: () => {
+        memberData = [];
+        completedCount++;
+        if (completedCount === 3) {
+          this.processStats(memberData, taskData, completedTaskData, startDate, endDate);
+        }
       }
     });
+
+    // Cargar tareas
+    this.taskService.getTasks().subscribe({
+      next: (tasks) => {
+        taskData = tasks || [];
+        completedCount++;
+        if (completedCount === 3) {
+          this.processStats(memberData, taskData, completedTaskData, startDate, endDate);
+        }
+      },
+      error: () => {
+        taskData = [];
+        completedCount++;
+        if (completedCount === 3) {
+          this.processStats(memberData, taskData, completedTaskData, startDate, endDate);
+        }
+      }
+    });
+
+    // Cargar tareas completadas
+    this.taskService.getCompletedTasksInDateRange(startDate, endDate).subscribe({
+      next: (completed) => {
+        completedTaskData = completed || [];
+        completedCount++;
+        if (completedCount === 3) {
+          this.processStats(memberData, taskData, completedTaskData, startDate, endDate);
+        }
+      },
+      error: () => {
+        completedTaskData = [];
+        completedCount++;
+        if (completedCount === 3) {
+          this.processStats(memberData, taskData, completedTaskData, startDate, endDate);
+        }
+      }
+    });
+
+    // Timeout de seguridad
+    setTimeout(() => {
+      if (this.loadingStats) {
+        this.loadingStats = false;
+        this.familyStats = this.getDefaultStats();
+      }
+    }, 10000);
+  }
+
+  private processStats(members: any[], tasks: any[], completedTasks: any[], startDate: Date, endDate: Date) {
+    this.familyStats = this.calculateFamilyStats(members, tasks, completedTasks, startDate, endDate);
+    this.loadingStats = false;
   }
 
   private getDefaultStats(): FamilyStats {

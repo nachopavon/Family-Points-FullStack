@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, catchError, map, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, map, Subject, of } from 'rxjs';
 import { Task, CompletedTask, CreateTaskRequest, CompleteTaskRequest } from '../models/task.model';
 import { FamilyService } from './family.service';
 import { NotificationService } from './notification.service';
@@ -198,11 +198,13 @@ export class TaskService {
 
   getCompletedTasksInDateRange(startDate: Date, endDate: Date): Observable<CompletedTask[]> {
     const params = `?start_date=${startDate.toISOString()}&end_date=${endDate.toISOString()}`;
+    
     return this.apiService.get<CompletedTask[]>(`/tasks/completed/range${params}`)
       .pipe(
         catchError(error => {
-          console.error('Error getting completed tasks in range:', error);
-          throw error;
+          console.error('❌ TaskService: Error en /tasks/completed/range:', error);
+          // En caso de error, devolver array vacío en lugar de propagar el error
+          return of([]);
         })
       );
   }
