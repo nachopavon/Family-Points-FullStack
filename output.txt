@@ -1,0 +1,4 @@
+[main 0b1d5dd] 🎨 Agregar favicon personalizado para Family Points
+ 6 files changed, 79 insertions(+), 356 deletions(-)
+ create mode 100644 create_favicon.py
+ create mode 100644 frontend/public/favicon.png
