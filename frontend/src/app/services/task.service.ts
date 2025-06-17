@@ -198,7 +198,7 @@ export class TaskService {
 
   getCompletedTasksInDateRange(startDate: Date, endDate: Date): Observable<CompletedTask[]> {
     const params = `?start_date=${startDate.toISOString()}&end_date=${endDate.toISOString()}`;
-    
+
     return this.apiService.get<CompletedTask[]>(`/tasks/completed/range${params}`)
       .pipe(
         catchError(error => {
