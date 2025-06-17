@@ -108,6 +108,9 @@
         </div>
 
         <div class="task-actions">
+          <button class="btn-complete" (click)="showCompleteDialog(task)" title="Completar tarea">
+            ✅ Completar
+          </button>
           <button class="btn-edit" (click)="editTask(task)" title="Editar tarea">
             ✏️
           </button>
@@ -124,5 +127,56 @@
     <div class="no-tasks-icon">📝</div>
     <h3>No hay tareas disponibles</h3>
     <p>¡Crea tu primera tarea para empezar!</p>
+  </div>
+
+  <!-- Modal para completar tarea -->
+  <div class="modal-overlay" *ngIf="showCompleteModal" (click)="closeCompleteDialog()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>✅ Completar Tarea</h3>
+        <button class="btn-close" (click)="closeCompleteDialog()">❌</button>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedTask">
+        <div class="task-summary">
+          <h4>{{ selectedTask.icon }} {{ selectedTask.name }}</h4>
+          <p class="task-points">🎯 {{ selectedTask.points }} puntos</p>
+          <p class="task-description" *ngIf="selectedTask.description">{{ selectedTask.description }}</p>
+        </div>
+
+        <div class="member-selection">
+          <label for="member-select">👤 ¿Quién completó esta tarea?</label>
+          <select id="member-select" [(ngModel)]="selectedMemberId" required>
+            <option value="">Seleccionar miembro</option>
+            <option *ngFor="let member of members$ | async; trackBy: trackByMemberId" [value]="member.id">
+              {{ member.avatar }} {{ member.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="completion-notes">
+          <label for="completion-notes">💬 Notas (opcional):</label>
+          <textarea
+            id="completion-notes"
+            [(ngModel)]="completionNotes"
+            placeholder="Agrega notas sobre cómo se completó la tarea..."
+            rows="3"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="closeCompleteDialog()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn-confirm"
+          (click)="confirmCompleteTask()"
+          [disabled]="!selectedMemberId || isCompletingTask">
+          <span *ngIf="isCompletingTask">🔄 Registrando...</span>
+          <span *ngIf="!isCompletingTask">✅ Registrar Completado</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

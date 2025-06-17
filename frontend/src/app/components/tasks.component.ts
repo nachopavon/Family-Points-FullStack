@@ -23,6 +23,13 @@ export class TasksComponent implements OnInit, OnDestroy {
   editingTask: Task | null = null;
   isCreatingTask = false;
 
+  // Propiedades para completar tareas
+  showCompleteModal = false;
+  selectedTask: Task | null = null;
+  selectedMemberId = '';
+  completionNotes = '';
+  isCompletingTask = false;
+
   newTask: Partial<Task> = {
     name: '',
     description: '',
@@ -191,5 +198,54 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   trackByCategory(index: number, category: any): string {
     return category.key;
+  }
+
+  trackByMemberId(index: number, member: FamilyMember): string {
+    return member.id;
+  }
+
+  // Métodos para completar tareas
+  showCompleteDialog(task: Task) {
+    this.selectedTask = task;
+    this.selectedMemberId = '';
+    this.completionNotes = '';
+    this.showCompleteModal = true;
+  }
+
+  closeCompleteDialog() {
+    this.showCompleteModal = false;
+    this.selectedTask = null;
+    this.selectedMemberId = '';
+    this.completionNotes = '';
+  }
+
+  confirmCompleteTask() {
+    if (!this.selectedTask || !this.selectedMemberId) {
+      this.notificationService.showError('Por favor selecciona un miembro familiar');
+      return;
+    }
+
+    this.isCompletingTask = true;
+
+    const completionData = {
+      memberId: this.selectedMemberId,
+      notes: this.completionNotes
+    };
+
+    const sub = this.taskService.completeTask(this.selectedTask.id, completionData).subscribe({
+      next: (completedTask) => {
+        this.closeCompleteDialog();
+        this.notificationService.showSuccess(
+          `✅ Tarea completada por ${completedTask.member_name || 'el miembro'}! +${completedTask.points} puntos 🎉`
+        );
+        this.isCompletingTask = false;
+      },
+      error: (error) => {
+        console.error('Error completing task:', error);
+        this.notificationService.showError('❌ Error al completar la tarea');
+        this.isCompletingTask = false;
+      }
+    });
+    this.subscriptions.push(sub);
   }
 }
