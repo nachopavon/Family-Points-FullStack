@@ -1,3 +1,2 @@
-NAME                     IMAGE                                                                     COMMAND                  SERVICE    CREATED         STATUS                             PORTS
-family-points-backend    sha256:8ddb8bda2538cef16b2e281231b2167b5f0b763eed0151443752e3fe81d7a743   "docker-entrypoint.s…"   backend    4 minutes ago   Up 3 seconds (health: starting)    0.0.0.0:3000->3000/tcp
-family-points-frontend   sha256:4773bc3595f419cc6f7823e0f93b6d882cd4d32bf7db1f46cf0a8a049f832727   "/docker-entrypoint.…"   frontend   3 minutes ago   Up 13 seconds (health: starting)   0.0.0.0:80->80/tcp
+[main 1ebffed] ✅ Fix: Corregido problema de estadísticas familiares
+ 6 files changed, 111 insertions(+), 36 deletions(-)
