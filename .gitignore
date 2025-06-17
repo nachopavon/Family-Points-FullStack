@@ -12,3 +12,10 @@ coverage/
 .DS_Store
 *.sqlite
 *.db
+
+# Archivos temporales y backups
+*.backup
+*.tmp
+*.new
+*.old
+src/
