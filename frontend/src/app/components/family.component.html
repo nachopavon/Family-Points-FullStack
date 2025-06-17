@@ -78,11 +78,11 @@
       <div class="member-stats">
         <div class="stats-grid">
           <div class="stat-item">
-            <span class="stat-value">{{ memberStats[member.id]?.points || 0 }}</span>
+            <span class="stat-value">{{ (memberStats[member.id] && memberStats[member.id].points) || 0 }}</span>
             <span class="stat-label">Puntos</span>
           </div>
           <div class="stat-item">
-            <span class="stat-value">{{ memberStats[member.id]?.tasks || 0 }}</span>
+            <span class="stat-value">{{ (memberStats[member.id] && memberStats[member.id].tasks) || 0 }}</span>
             <span class="stat-label">Tareas</span>
           </div>
         </div>
@@ -113,7 +113,7 @@
           <div class="mini-avatar">{{ member.avatar || getInitials(member.name) }}</div>
           <span class="member-name-small">{{ member.name }}</span>
         </div>
-        <span class="points-badge">{{ memberStats[member.id]?.points || 0 }} pts</span>
+        <span class="points-badge">{{ (memberStats[member.id] && memberStats[member.id].points) || 0 }} pts</span>
       </div>
     </div>
   </div>
