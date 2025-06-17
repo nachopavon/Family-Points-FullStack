@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copiar archivos construidos
-COPY --from=build /app/dist/test-copilot /usr/share/nginx/html
+COPY --from=build /app/dist/test-copilot/browser /usr/share/nginx/html
 
 # Copiar configuración personalizada de nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
