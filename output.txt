@@ -1,0 +1,6 @@
+time="2025-06-17T13:24:46+02:00" level=warning msg="/Users/nachopavon/workspace/test-copilot-backend/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container family-points-backend  Running
+ Container family-points-frontend  Recreate
+ Container family-points-frontend  Recreated
+ Container family-points-frontend  Starting
+ Container family-points-frontend  Started

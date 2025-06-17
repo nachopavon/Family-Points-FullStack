@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Observable, map, combineLatest } from 'rxjs';
+import { Observable, map, combineLatest, Subscription } from 'rxjs';
 import { FamilyMember } from '../models/family-member.model';
 import { FamilyService } from '../services/family.service';
 import { TaskService } from '../services/task.service';
@@ -13,12 +13,14 @@ import { TaskService } from '../services/task.service';
   templateUrl: './family.component.html',
   styleUrls: ['./family.component.scss']
 })
-export class FamilyComponent implements OnInit {
+export class FamilyComponent implements OnInit, OnDestroy {
   members$: Observable<FamilyMember[]>;
   showAddMemberForm = false;
   editingMember: FamilyMember | null = null;
   isCreatingMember = false;
   isSaving = false;
+
+  private subscriptions: Subscription[] = [];
 
   newMember: Partial<FamilyMember> = {
     name: '',
@@ -66,30 +68,43 @@ export class FamilyComponent implements OnInit {
   ngOnInit() {
     this.members$ = this.familyService.getMembers();
     // Cargar estadísticas de tareas para cada miembro
-    this.loadMemberTasksToday();
-    this.loadMemberStats();
+    this.loadMemberTaskStats();
+
+    // Suscribirse a cambios en las estadísticas cuando se completen tareas
+    const statsSub = this.taskService.memberStatsChanged$.subscribe(() => {
+      this.refreshMemberStats();
+    });
+    this.subscriptions.push(statsSub);
   }
 
-  private loadMemberTasksToday(): void {
-    this.members$.subscribe(members => {
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private loadMemberTaskStats(): void {
+    const membersSub = this.members$.subscribe(members => {
       members.forEach(member => {
-        this.taskService.getCompletedTasksToday().subscribe(todayTasks => {
-          const memberTasks = todayTasks.filter(task => task.member_id === member.id);
-          this.memberTasksToday[member.id] = memberTasks.length;
+        // Cargar el total de tareas completadas por el miembro
+        const tasksSub = this.taskService.getCompletedTasksByMember(member.id).subscribe(completedTasks => {
+          this.memberTasksToday[member.id] = completedTasks.length;
+          this.updateMemberStats(member);
         });
+        this.subscriptions.push(tasksSub);
       });
     });
+    this.subscriptions.push(membersSub);
   }
 
-  private loadMemberStats(): void {
-    this.members$.subscribe(members => {
-      members.forEach(member => {
-        this.memberStats[member.id] = {
-          points: member.total_points || 0,
-          tasks: this.memberTasksToday[member.id] || 0
-        };
-      });
-    });
+  private updateMemberStats(member: FamilyMember): void {
+    this.memberStats[member.id] = {
+      points: member.total_points || 0,
+      tasks: this.memberTasksToday[member.id] || 0
+    };
+  }
+
+  // Método público para refrescar estadísticas (se puede llamar desde otros componentes)
+  refreshMemberStats(): void {
+    this.loadMemberTaskStats();
   }
 
   addMember() {
@@ -107,7 +122,7 @@ export class FamilyComponent implements OnInit {
         next: () => {
           this.cancelAddMember();
           this.isSaving = false;
-          this.loadMemberStats();
+          this.loadMemberTaskStats();
         },
         error: (error) => {
           console.error('Error adding member:', error);
@@ -137,7 +152,7 @@ export class FamilyComponent implements OnInit {
         next: () => {
           this.cancelAddMember();
           this.isSaving = false;
-          this.loadMemberStats();
+          this.loadMemberTaskStats();
         },
         error: (error) => {
           console.error('Error updating member:', error);

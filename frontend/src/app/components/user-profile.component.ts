@@ -1066,21 +1066,46 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     const { startDate, endDate } = this.getPeriodDates();
 
+    // Timeout de seguridad para evitar carga infinita
+    const timeoutId = setTimeout(() => {
+      this.loadingStats = false;
+      this.familyStats = this.getDefaultStats();
+    }, 10000); // 10 segundos máximo
+
     forkJoin({
       members: this.familyService.getMembers(),
       tasks: this.taskService.getTasks(),
       completedTasks: this.taskService.getCompletedTasksInDateRange(startDate, endDate)
     }).subscribe({
       next: ({ members, tasks, completedTasks }) => {
+        clearTimeout(timeoutId);
         this.familyStats = this.calculateFamilyStats(members, tasks, completedTasks, startDate, endDate);
         this.loadingStats = false;
       },
       error: (error) => {
+        clearTimeout(timeoutId);
         console.error('Error loading family stats:', error);
         this.notificationService.showError('Error al cargar las estadísticas familiares');
+        // Cargar datos de respaldo en caso de error
+        this.familyStats = this.getDefaultStats();
         this.loadingStats = false;
       }
     });
+  }
+
+  private getDefaultStats(): FamilyStats {
+    return {
+      totalPoints: 0,
+      totalTasks: 0,
+      activeMembersCount: 0,
+      avgTasksPerDay: 0,
+      maxPoints: 0,
+      maxDailyTasks: 0,
+      memberRanking: [],
+      weeklyActivity: [],
+      categoryDistribution: [],
+      achievements: []
+    };
   }
 
   private calculateFamilyStats(members: any[], tasks: any[], completedTasks: any[], startDate: Date, endDate: Date): FamilyStats {
@@ -1229,30 +1254,53 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     return achievements;
   }
 
-  private getPeriodDates(): { startDate: Date, endDate: Date } {
+  private getPeriodDates(): { startDate: Date; endDate: Date } {
     const now = new Date();
-    const endDate = new Date(now);
-    let startDate = new Date(now);
+    const startDate = new Date();
+    const endDate = new Date();
+
+    // Asegurarse de que endDate sea el final del día actual
+    endDate.setHours(23, 59, 59, 999);
 
     switch (this.selectedPeriod) {
       case 'week':
+        // Últimos 7 días desde hoy
         startDate.setDate(now.getDate() - 7);
+        startDate.setHours(0, 0, 0, 0);
         break;
       case 'month':
+        // Último mes desde hoy
         startDate.setMonth(now.getMonth() - 1);
+        startDate.setHours(0, 0, 0, 0);
         break;
       case '3months':
+        // Últimos 3 meses desde hoy
         startDate.setMonth(now.getMonth() - 3);
+        startDate.setHours(0, 0, 0, 0);
         break;
       case 'year':
+        // Último año desde hoy
         startDate.setFullYear(now.getFullYear() - 1);
+        startDate.setHours(0, 0, 0, 0);
         break;
+      default:
+        // Por defecto: últimos 7 días
+        startDate.setDate(now.getDate() - 7);
+        startDate.setHours(0, 0, 0, 0);
     }
+
+    console.log('📅 Rango de fechas calculado:', {
+      period: this.selectedPeriod,
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
+      startDateLocal: startDate.toLocaleString(),
+      endDateLocal: endDate.toLocaleString()
+    });
 
     return { startDate, endDate };
   }
 
-  refreshStats() {
+  refreshStats(): void {
     this.loadFamilyStats();
   }
 

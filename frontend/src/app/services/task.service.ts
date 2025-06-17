@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, catchError, map } from 'rxjs';
+import { BehaviorSubject, Observable, tap, catchError, map, Subject } from 'rxjs';
 import { Task, CompletedTask, CreateTaskRequest, CompleteTaskRequest } from '../models/task.model';
 import { FamilyService } from './family.service';
 import { NotificationService } from './notification.service';
@@ -11,6 +11,7 @@ import { ApiService } from './api.service';
 export class TaskService {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   private completedTasksSubject = new BehaviorSubject<CompletedTask[]>([]);
+  private memberStatsChangedSubject = new Subject<void>();
   private currentUserId: string | null = null;
 
   constructor(
@@ -31,6 +32,11 @@ export class TaskService {
     this.currentUserId = null;
     this.tasksSubject.next([]);
     this.completedTasksSubject.next([]);
+  }
+
+  // Observable para notificar cambios en las estadísticas de miembros
+  get memberStatsChanged$(): Observable<void> {
+    return this.memberStatsChangedSubject.asObservable();
   }
 
   private loadTasks(): void {
@@ -133,6 +139,9 @@ export class TaskService {
           // Recargar miembros para obtener puntos actualizados
           // (El backend ya actualiza los puntos automáticamente)
           this.familyService.refreshMembers();
+
+          // Notificar que las estadísticas de miembros han cambiado
+          this.memberStatsChangedSubject.next();
 
           this.notificationService.showSuccess(
             `¡Tarea completada! +${completedTask.points} puntos para ${completedTask.member_name || 'el miembro'} 🎉`
