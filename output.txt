@@ -1,5 +1,2 @@
- Container family-points-backend  Running
- Container family-points-frontend  Recreate
- Container family-points-frontend  Recreated
- Container family-points-frontend  Starting
- Container family-points-frontend  Started
+./frontend/src/app/app.spec.ts
+./frontend/tsconfig.spec.json
