@@ -125,12 +125,12 @@ npm run dev                 # Ejecutar ambos simultáneamente
 
 # 🏗️ Build & Deploy
 npm run build:frontend      # Build de producción Angular
-npm run build:all          # Build completo
+npm run build:all           # Build completo
 
 # 🧪 Testing
 npm run test:backend        # Tests del backend
 npm run test:frontend       # Tests del frontend
-npm run test:all           # Tests de ambos proyectos
+npm run test:all            # Tests de ambos proyectos
 
 # 🧹 Limpieza
 npm run clean              # Limpiar node_modules y builds
@@ -330,8 +330,37 @@ npm run install:all && npm run dev
 ---
 
 **¡Happy coding! 🚀**
-
+src/
+├── index.js                 # 🚀 Servidor principal (Express + Swagger)
+├── controllers/             # 🎮 Lógica de negocio
+│   ├── authController.js    #   └── Autenticación
+│   ├── userController.js    #   └── Gestión de usuarios  
+│   ├── familyController.js  #   └── Miembros de familia
+│   └── taskController.js    #   └── Tareas y completadas
+├── models/                  # 🗄️ Modelos de datos (SQLite)
+│   ├── User.js             #   └── Usuarios y autenticación
+│   ├── FamilyMember.js     #   └── Miembros familiares
+│   ├── Task.js             #   └── Tareas del sistema
+│   ├── CompletedTask.js    #   └── Historial de tareas
+│   └── UserSession.js      #   └── Sesiones JWT
+├── routes/                 # 🛣️ Endpoints de la API
+│   ├── auth.js            #   └── /api/auth/*
+│   ├── users.js           #   └── /api/users/*
+│   ├── family.js          #   └── /api/family/*
+│   ├── tasks.js           #   └── /api/tasks/*
+│   └── index.js           #   └── Router principal
+├── middleware/            # ⚙️ Middlewares
+│   ├── auth.js           #   └── Autenticación JWT
+│   ├── validation.js     #   └── Validación Joi
+│   └── errorHandler.js   #   └── Manejo de errores
+├── validators/           # ✅ Esquemas de validación
+│   ├── authValidators.js
+│   ├── familyValidators.js
+│   └── taskValidators.js
+└── database/
+    └── init.js          # 🔧 Configuración SQLite
 ```
+```text
 src/
 ├── index.js                 # 🚀 Servidor principal (Express + Swagger)
 ├── controllers/             # 🎮 Lógica de negocio
@@ -364,8 +393,6 @@ src/
 ```
 
 ## 📋 Requisitos
-
-- **Node.js** >= 18.0.0
 - **npm** o **yarn**
 
 ## 🚀 Instalación y Uso
