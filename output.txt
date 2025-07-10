@@ -1,2 +1,23 @@
-./frontend/src/app/app.spec.ts
-./frontend/tsconfig.spec.json
+e4bf820 fix: corregir el nombre de usuario del usuario demo en auth.component.ts
+c5bd549 fix: eliminar espacios en blanco innecesarios en auth.component.ts e index.html
+8b5554b Merge pull request #2 from nachopavon/copilot/fix-1
+b280e50 Add comprehensive unit tests for backend main functions
+606eea1 Initial plan
+bed85da Initial plan
+2959861 fix(styles): mejorar contraste de texto en encabezados y botones
+55a5db4 fix(nginx): actualizar configuración de caché para Angular y archivos estáticos
+a5e97ac feat(auth): refactor authentication component to improve validation and user experience
+f32b814 🎨 Agregar favicon personalizado para Family Points
+0b1d5dd 🎨 Agregar favicon personalizado para Family Points
+00ddec6 fix: Actualizar dirección de localhost en healthcheck y limpiar código
+b5464f6 ✅ Fix: Eliminar líneas innecesarias en el archivo de salida
+1ebffed ✅ Fix: Corregido problema de estadísticas familiares
+65d1a07 feat: Añadir funcionalidad de cierre de sesión y mejorar diseño en el perfil de usuario
+495fef0 feat: Mejorar gestión de estadísticas familiares y suscripciones en componentes
+b939b79 feat: Añadir funcionalidad para completar tareas con modal y selección de miembro
+9ec5cb6 🔧 Fix: Corrección de CORS para puerto 80
+9827b67 🔧 Fix: Corrección de ruta en Dockerfile del frontend
+34f180e 🎉 Proyecto completado: Dockerización exitosa y app funcionando
+6970d93 feat: Add Docker containerization support
+439898f 🔧 Update .gitignore to exclude temporary files and duplicates
+d6128e3 🎉 Initial commit: Family Points Fullstack Application
