@@ -35,7 +35,7 @@ export class AuthComponent implements OnDestroy {
   avatarOptions = ['👨', '👩', '👧', '👦', '👴', '👵', '🧔', '👱‍♀️', '👱‍♂️', '🧑‍🦰', '👨‍🦱', '👩‍🦱'];
 
   demoUsers = [
-    { familyName: 'Familia Demo', avatar: '👨', username: 'demo', password: 'demo123' }
+    { familyName: 'Familia Demo', avatar: '👨', username: 'demo1', password: 'demo123' }
   ];
 
   // Propiedades para validación de accesibilidad
