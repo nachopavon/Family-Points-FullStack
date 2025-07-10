@@ -16,7 +16,7 @@ export class AuthComponent implements OnDestroy {
   currentTab: 'login' | 'register' = 'login';
   isLoading = false;
   errorMessage = '';
-  
+
   private subscription = new Subscription();
 
   loginData: LoginCredentials = {
