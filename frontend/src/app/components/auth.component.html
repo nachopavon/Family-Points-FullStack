@@ -1,0 +1,321 @@
+<div class="auth-container">
+  <div class="auth-content" role="main">
+    <!-- Panel izquierdo - Bienvenida -->
+    <div class="welcome-panel" role="complementary" aria-label="Información de la aplicación">
+      <div class="welcome-content">
+        <div class="logo-section">
+          <div class="logo" role="img" aria-label="Trofeo, icono de Family Points">🏆</div>
+          <h1 class="app-title">Family Points</h1>
+          <p class="app-subtitle">Planifica actividades familiares y gestiona puntos por tareas cotidianas</p>
+        </div>
+
+        <div class="illustration" role="img" aria-label="Ilustración de una familia">
+          <div class="family-icons">
+            <div class="family-member dad" role="img" aria-label="Papá">👨</div>
+            <div class="family-member mom" role="img" aria-label="Mamá">👩</div>
+            <div class="family-member kid" role="img" aria-label="Hija">👧</div>
+          </div>
+          <div class="floating-elements" aria-hidden="true">
+            <div class="floating-star star1">⭐</div>
+            <div class="floating-star star2">✨</div>
+            <div class="floating-star star3">🌟</div>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <span class="feature-icon" role="img" aria-label="Calendario">📅</span>
+            <span>Planifica eventos familiares</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon" role="img" aria-label="Objetivo">🎯</span>
+            <span>Asigna tareas y puntos</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon" role="img" aria-label="Trofeo">🏆</span>
+            <span>Compite en familia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel derecho - Formularios -->
+    <div class="form-panel">
+      <div class="form-container">
+        <header class="form-header">
+          <h2 id="form-title">{{ currentTab === 'login' ? '¡Bienvenido de vuelta!' : '¡Únete a la diversión!' }}</h2>
+          <p id="form-description">{{ currentTab === 'login' ? 'Accede a tu cuenta familiar' : 'Crea tu cuenta familiar' }}</p>
+        </header>
+
+        <div class="auth-tabs" role="tablist" aria-label="Tipo de formulario">
+          <button
+            type="button"
+            role="tab"
+            class="tab-button"
+            [class.active]="currentTab === 'login'"
+            [attr.aria-selected]="currentTab === 'login'"
+            [attr.aria-controls]="'login-form'"
+            [attr.tabindex]="currentTab === 'login' ? 0 : -1"
+            (click)="setCurrentTab('login')"
+            (keydown.ArrowRight)="setCurrentTab('register')"
+            (keydown.ArrowLeft)="setCurrentTab('register')">
+            Iniciar Sesión
+          </button>
+          <button
+            type="button"
+            role="tab"
+            class="tab-button"
+            [class.active]="currentTab === 'register'"
+            [attr.aria-selected]="currentTab === 'register'"
+            [attr.aria-controls]="'register-form'"
+            [attr.tabindex]="currentTab === 'register' ? 0 : -1"
+            (click)="setCurrentTab('register')"
+            (keydown.ArrowRight)="setCurrentTab('login')"
+            (keydown.ArrowLeft)="setCurrentTab('login')">
+            Registrarse
+          </button>
+        </div>
+
+        <div class="form-wrapper">
+          <!-- Formulario de Login -->
+          <form
+            *ngIf="currentTab === 'login'"
+            (ngSubmit)="onLogin()"
+            class="auth-form"
+            id="login-form"
+            role="tabpanel"
+            [attr.aria-labelledby]="'form-title'"
+            [attr.aria-describedby]="'form-description'"
+            novalidate>
+
+            <div class="form-fields">
+              <div class="form-group">
+                <label for="login-username">
+                  <span role="img" aria-label="Usuario">👤</span> Usuario
+                </label>
+                <input
+                  id="login-username"
+                  type="text"
+                  [(ngModel)]="loginData.username"
+                  name="username"
+                  placeholder="Tu nombre de usuario"
+                  autocomplete="username"
+                  aria-describedby="login-username-help"
+                  [attr.aria-invalid]="loginUsernameInvalid"
+                  required>
+                <div id="login-username-help" class="sr-only">
+                  Ingresa tu nombre de usuario para iniciar sesión
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="login-password">
+                  <span role="img" aria-label="Contraseña">🔒</span> Contraseña
+                </label>
+                <input
+                  id="login-password"
+                  type="password"
+                  [(ngModel)]="loginData.password"
+                  name="password"
+                  placeholder="Tu contraseña"
+                  autocomplete="current-password"
+                  aria-describedby="login-password-help"
+                  [attr.aria-invalid]="loginPasswordInvalid"
+                  required>
+                <div id="login-password-help" class="sr-only">
+                  Ingresa tu contraseña para iniciar sesión
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn-primary submit-btn"
+              [disabled]="isLoading"
+              [attr.aria-describedby]="isLoading ? 'loading-message' : null">
+              <span *ngIf="isLoading" id="loading-message">
+                <span role="img" aria-label="Cargando">🔄</span> Iniciando sesión...
+              </span>
+              <span *ngIf="!isLoading">
+                <span role="img" aria-label="Cohete">🚀</span> Iniciar Sesión
+              </span>
+            </button>
+          </form>
+
+          <!-- Formulario de Registro -->
+          <form
+            *ngIf="currentTab === 'register'"
+            (ngSubmit)="onRegister()"
+            class="auth-form"
+            id="register-form"
+            role="tabpanel"
+            [attr.aria-labelledby]="'form-title'"
+            [attr.aria-describedby]="'form-description'"
+            novalidate>
+
+            <div class="form-fields">
+              <div class="form-group">
+                <label for="register-username">
+                  <span role="img" aria-label="Usuario">👤</span> Usuario
+                </label>
+                <input
+                  id="register-username"
+                  type="text"
+                  [(ngModel)]="registerData.username"
+                  name="regUsername"
+                  placeholder="Elige un nombre de usuario"
+                  autocomplete="username"
+                  aria-describedby="register-username-help"
+                  [attr.aria-invalid]="registerUsernameInvalid"
+                  required>
+                <div id="register-username-help" class="sr-only">
+                  Elige un nombre de usuario único para tu cuenta
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="register-email">
+                  <span role="img" aria-label="Email">📧</span> Email
+                </label>
+                <input
+                  id="register-email"
+                  type="email"
+                  [(ngModel)]="registerData.email"
+                  name="email"
+                  placeholder="tu@email.com"
+                  autocomplete="email"
+                  aria-describedby="register-email-help"
+                  [attr.aria-invalid]="registerEmailInvalid"
+                  required>
+                <div id="register-email-help" class="sr-only">
+                  Ingresa un email válido para tu cuenta
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="register-family">
+                  <span role="img" aria-label="Casa">🏠</span> Nombre de tu Familia
+                </label>
+                <input
+                  id="register-family"
+                  type="text"
+                  [(ngModel)]="registerData.familyName"
+                  name="familyName"
+                  placeholder="Familia González"
+                  aria-describedby="register-family-help"
+                  [attr.aria-invalid]="registerFamilyInvalid"
+                  required>
+                <div id="register-family-help" class="sr-only">
+                  Nombre que aparecerá para identificar a tu familia
+                </div>
+              </div>
+
+              <div class="form-group">
+                <fieldset>
+                  <legend>
+                    <span role="img" aria-label="Máscara">🎭</span> Elige tu Avatar
+                  </legend>
+                  <div class="avatar-selector" role="radiogroup" aria-describedby="avatar-help">
+                    <button
+                      type="button"
+                      *ngFor="let avatar of avatarOptions; trackBy: trackByAvatar"
+                      class="avatar-option"
+                      role="radio"
+                      [class.selected]="registerData.avatar === avatar"
+                      [attr.aria-checked]="registerData.avatar === avatar"
+                      [attr.aria-label]="'Avatar ' + avatar"
+                      (click)="selectAvatar(avatar)"
+                      (keydown.Enter)="selectAvatar(avatar)"
+                      (keydown.Space)="selectAvatar(avatar)">
+                      {{avatar}}
+                    </button>
+                  </div>
+                  <div id="avatar-help" class="sr-only">
+                    Selecciona un emoji que te represente en la aplicación
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="form-group">
+                <label for="register-password">
+                  <span role="img" aria-label="Contraseña">🔒</span> Contraseña
+                </label>
+                <input
+                  id="register-password"
+                  type="password"
+                  [(ngModel)]="registerData.password"
+                  name="regPassword"
+                  placeholder="Crea una contraseña segura"
+                  autocomplete="new-password"
+                  aria-describedby="register-password-help"
+                  [attr.aria-invalid]="registerPasswordInvalid"
+                  required>
+                <div id="register-password-help" class="sr-only">
+                  Crea una contraseña segura para proteger tu cuenta
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn-primary submit-btn"
+              [disabled]="isLoading"
+              [attr.aria-describedby]="isLoading ? 'loading-message-register' : null">
+              <span *ngIf="isLoading" id="loading-message-register">
+                <span role="img" aria-label="Cargando">🔄</span> Creando cuenta...
+              </span>
+              <span *ngIf="!isLoading">
+                <span role="img" aria-label="Estrella">✨</span> Crear Cuenta
+              </span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Mensajes de error -->
+        <div
+          *ngIf="errorMessage"
+          class="error-message"
+          role="alert"
+          aria-live="polite"
+          id="error-alert">
+          <span role="img" aria-label="Advertencia">⚠️</span> {{errorMessage}}
+        </div>
+
+        <!-- Usuarios de demo -->
+        <section class="demo-section" *ngIf="currentTab === 'login'" aria-labelledby="demo-title">
+          <h3 id="demo-title">
+            <span role="img" aria-label="Grupo">👥</span> Familias de Demostración
+          </h3>
+          <p>Prueba con estas familias de ejemplo:</p>
+          <div class="demo-users" role="list">
+            <button
+              type="button"
+              *ngFor="let user of demoUsers; trackBy: trackByUser"
+              class="demo-user-btn"
+              role="listitem"
+              [attr.aria-label]="'Iniciar sesión como ' + user.familyName"
+              (click)="loginAsDemo(user)">
+              <span class="demo-avatar" [attr.aria-label]="'Avatar ' + user.avatar">{{user.avatar}}</span>
+              <span class="demo-name">{{user.familyName}}</span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clase utilitaria para lectores de pantalla -->
+<style>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>

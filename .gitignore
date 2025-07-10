@@ -18,5 +18,6 @@ coverage/
 *.tmp
 *.new
 *.old
-src/
+# src/ ignoraba todos los src/ de frontend y backend, solo ignorar el de la raíz si es necesario
+# /src/
 output.txt
