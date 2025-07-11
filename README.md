@@ -329,37 +329,7 @@ npm run install:all && npm run dev
 
 ---
 
-**¡Happy coding! 🚀**
-src/
-├── index.js                 # 🚀 Servidor principal (Express + Swagger)
-├── controllers/             # 🎮 Lógica de negocio
-│   ├── authController.js    #   └── Autenticación
-│   ├── userController.js    #   └── Gestión de usuarios  
-│   ├── familyController.js  #   └── Miembros de familia
-│   └── taskController.js    #   └── Tareas y completadas
-├── models/                  # 🗄️ Modelos de datos (SQLite)
-│   ├── User.js             #   └── Usuarios y autenticación
-│   ├── FamilyMember.js     #   └── Miembros familiares
-│   ├── Task.js             #   └── Tareas del sistema
-│   ├── CompletedTask.js    #   └── Historial de tareas
-│   └── UserSession.js      #   └── Sesiones JWT
-├── routes/                 # 🛣️ Endpoints de la API
-│   ├── auth.js            #   └── /api/auth/*
-│   ├── users.js           #   └── /api/users/*
-│   ├── family.js          #   └── /api/family/*
-│   ├── tasks.js           #   └── /api/tasks/*
-│   └── index.js           #   └── Router principal
-├── middleware/            # ⚙️ Middlewares
-│   ├── auth.js           #   └── Autenticación JWT
-│   ├── validation.js     #   └── Validación Joi
-│   └── errorHandler.js   #   └── Manejo de errores
-├── validators/           # ✅ Esquemas de validación
-│   ├── authValidators.js
-│   ├── familyValidators.js
-│   └── taskValidators.js
-└── database/
-    └── init.js          # 🔧 Configuración SQLite
-```
+**¡Happy coding!
 ```text
 src/
 ├── index.js                 # 🚀 Servidor principal (Express + Swagger)
