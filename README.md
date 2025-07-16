@@ -1,458 +1,281 @@
-# 🏠 Family Points - Fullstack Application
-
-**Sistema completo de gestión de tareas familiares con puntos de recompensa**
-
-Aplicación fullstack desarrollada con **Angular** (frontend) y **Node.js + Express + SQLite** (backend) para gestionar tareas familiares, miembros de familia, puntos de recompensa y sistema de autenticación.
-
-## 🎯 Descripción
-
-Family Points es una aplicación web completa que permite a las familias gestionar tareas domésticas mediante un sistema de puntos y recompensas. Los padres pueden crear tareas, asignar puntos y ver el progreso de cada miembro de la familia en tiempo real.
-
-## ✨ Características
-
-### 🖥️ **Frontend (Angular)**
-- 🎨 **UI Moderna** - Interfaz responsiva y atractiva
-- 🔐 **Autenticación** - Login/registro con guards
-- 👨‍👩‍👧‍👦 **Gestión de Familia** - CRUD de miembros familiares
-- 📋 **Sistema de Tareas** - Crear, asignar y completar tareas
-- 🏆 **Leaderboard** - Tabla de clasificación en tiempo real
-- 📱 **Responsive** - Funciona en móviles y tablets
-- ⚡ **Tiempo Real** - Actualizaciones automáticas
-
-### 🔧 **Backend (Node.js + Express)**
-- 🔐 **API REST** - Endpoints completos con autenticación JWT
-- 📊 **Base de datos SQLite** - Persistencia ligera con relaciones FK
-- 📚 **Documentación Swagger** - API docs automática
-- 🛡️ **Seguridad** - Helmet, CORS, rate limiting, bcrypt
-- ✅ **Validación** - Esquemas Joi robustos
-- 🎭 **Datos Demo** - Usuario de prueba preconfigurado
-
-## 📁 Estructura del Proyecto
-
-```
-family-points/
-├── backend/                 # 🔧 API Node.js + Express + SQLite
-│   ├── src/
-│   │   ├── controllers/     # 🎮 Lógica de negocio
-│   │   ├── models/         # 🗄️ Modelos de datos SQLite
-│   │   ├── routes/         # 🛣️ Endpoints de la API
-│   │   ├── middleware/     # ⚙️ Autenticación y validación
-│   │   ├── validators/     # ✅ Esquemas de validación
-│   │   └── database/       # 🔧 Configuración de BD
-│   ├── package.json
-│   └── database.sqlite
-├── frontend/               # 🖥️ Aplicación Angular
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/ # 🎨 Componentes UI
-│   │   │   ├── services/   # 🔄 Servicios HTTP
-│   │   │   └── models/     # 📋 Interfaces TypeScript
-│   │   └── assets/
-│   ├── angular.json
-│   └── package.json
-├── package.json            # 📦 Scripts del proyecto completo
-└── README.md              # 📖 Este archivo
-```
-
-## 🚀 Inicio Rápido
-
-### 📋 **Requisitos**
-- **Node.js** >= 18.0.0
-- **Angular CLI** >= 17.0.0
-- **npm** o **yarn**
-
-### ⚡ **Instalación Completa**
-
-```bash
-# Clonar el repositorio
-git clone <repository-url>
-cd family-points
-
-# Instalar dependencias de ambos proyectos
-npm run install:all
-
-# Ejecutar ambos proyectos simultáneamente
-npm run dev
-```
-
-### 🔧 **Instalación Manual (Paso a Paso)**
-
-#### 1. **Backend (API)**
-```bash
-# Instalar dependencias del backend
-cd backend
-npm install
-
-# Configurar variables de entorno
-cp .env.example .env
-# Editar .env según necesidades
-
-# Iniciar servidor backend
-npm start
-```
-
-#### 2. **Frontend (Angular)**
-```bash
-# Instalar dependencias del frontend
-cd frontend
-npm install
-
-# Iniciar servidor de desarrollo
-ng serve
-```
-
-## 🌐 **URLs de Acceso**
-
-| Servicio | URL | Descripción |
-|----------|-----|-------------|
-| **Frontend** | http://localhost:4200 | 🖥️ Aplicación web principal |
-| **Backend API** | http://localhost:3000/api | 🔧 API REST |
-| **Swagger Docs** | http://localhost:3000/api-docs | 📚 Documentación interactiva |
-| **Health Check** | http://localhost:3000/api/health | ❤️ Estado de la API |
-
-## 📋 **Scripts Disponibles**
-
-```bash
-# 🔧 Instalación
-npm run install:backend     # Instalar solo backend
-npm run install:frontend    # Instalar solo frontend  
-npm run install:all         # Instalar ambos proyectos
-
-# 🚀 Desarrollo
-npm run start:backend       # Ejecutar solo backend
-npm run start:frontend      # Ejecutar solo frontend
-npm run dev                 # Ejecutar ambos simultáneamente
-
-# 🏗️ Build & Deploy
-npm run build:frontend      # Build de producción Angular
-npm run build:all           # Build completo
-
-# 🧪 Testing
-npm run test:backend        # Tests del backend
-npm run test:frontend       # Tests del frontend
-npm run test:all            # Tests de ambos proyectos
-
-# 🧹 Limpieza
-npm run clean              # Limpiar node_modules y builds
-```
-
-## 🧪 **Datos de Prueba**
-
-El sistema incluye datos demo preconfigurados para pruebas:
-
-### 👤 **Usuario Demo**
-- **Username:** `demo1`
-- **Email:** `familia@demo.com`
-- **Password:** `demo123`
-- **Familia:** Familia Demo 👨‍👩‍👧‍👦
-
-### 👨‍👩‍👧‍👦 **Miembros Demo**
-- 👨 **Papá** - 45 puntos
-- 👩 **Mamá** - 38 puntos
-- 👦 **Hermano** - 22 puntos
-- 👧 **Hermana** - 15 puntos
-
-### 📋 **Tareas Demo**
-- 🧹 **Limpiar habitación** - 10 puntos
-- 🍽️ **Lavar platos** - 8 puntos
-- 🗑️ **Sacar basura** - 5 puntos
-- 📚 **Hacer deberes** - 15 puntos
-
-## 🔗 **API Endpoints Principales**
-
-### 🔐 **Autenticación** (`/api/auth`)
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `POST` | `/register` | Registrar nuevo usuario |
-| `POST` | `/login` | Iniciar sesión |
-| `POST` | `/logout` | Cerrar sesión |
-| `GET` | `/me` | Usuario actual |
-
-### 👨‍👩‍👧‍👦 **Familia** (`/api/family`)
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/members` | Listar miembros |
-| `POST` | `/members` | Crear miembro |
-| `PUT` | `/members/:id` | Actualizar miembro |
-| `DELETE` | `/members/:id` | Eliminar miembro |
-| `GET` | `/leaderboard` | Tabla de clasificación |
-
-### 📋 **Tareas** (`/api/tasks`)
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/` | Listar tareas |
-| `POST` | `/` | Crear tarea |
-| `POST` | `/:id/complete` | Completar tarea |
-| `GET` | `/completed` | Historial |
-
-> 📚 **Documentación completa:** http://localhost:3000/api-docs
-
-## 🛡️ **Seguridad Implementada**
-
-- ✅ **JWT Authentication** - Tokens seguros con expiración
-- ✅ **Bcrypt** - Hash de contraseñas con salt
-- ✅ **Helmet** - Headers de seguridad HTTP
-- ✅ **CORS** - Control de acceso entre dominios
-- ✅ **Rate Limiting** - Protección contra abuso
-- ✅ **Input Validation** - Validación Joi en todos los endpoints
-- ✅ **SQL Injection Protection** - Queries parametrizadas
-- ✅ **XSS Protection** - Sanitización de entrada
-
-## 🗄️ **Base de Datos (SQLite)**
-
-### 📊 **Esquema de Tablas**
-- 👤 **users** - Usuarios y autenticación
-- 👨‍👩‍👧‍👦 **family_members** - Miembros familiares
-- 📋 **tasks** - Tareas del sistema
-- ✅ **completed_tasks** - Historial de tareas
-- 🔐 **user_sessions** - Sesiones JWT
-
-### 🔗 **Relaciones**
-- Un usuario puede tener múltiples miembros de familia
-- Un miembro puede completar múltiples tareas
-- Las tareas completadas mantienen el historial
-
-## 🧪 **Testing**
-
-### 🔧 **Backend Testing**
-```bash
-cd backend
-npm test                   # Ejecutar tests
-npm run test:coverage     # Tests con coverage
-```
-
-### 🖥️ **Frontend Testing**
-```bash
-cd frontend
-ng test                   # Tests unitarios
-ng e2e                    # Tests end-to-end
-```
-
-## 🐛 **Debugging**
-
-### 📊 **Logs Backend**
-```bash
-cd backend
-npm run dev              # Modo desarrollo con logs detallados
-```
-
-### 🔍 **Debug Frontend**
-```bash
-cd frontend
-ng serve --open         # Abrir con DevTools
-```
-
-### 🛠️ **Comandos Útiles**
-```bash
-# Ver base de datos
-sqlite3 backend/database.sqlite ".tables"
-
-# Probar API
-curl http://localhost:3000/api/health
-
-# Verificar build Angular
-cd frontend && ng build --configuration production
-```
-
-## 🚀 **Deployment**
-
-### 🌍 **Producción**
-
-#### Backend
-```bash
-cd backend
-npm run build
-npm start
-```
-
-#### Frontend
-```bash
-cd frontend
-ng build --configuration production
-# Servir desde dist/ con nginx o similar
-```
-
-### 🐳 **Docker (Próximamente)**
-```yaml
-# docker-compose.yml
-version: '3.8'
-services:
-  backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-  frontend:
-    build: ./frontend
-    ports:
-      - "4200:80"
-```
-
-## 🤝 **Contribuir**
-
-1. **Fork** el proyecto
-2. **Crear** branch de feature (`git checkout -b feature/AmazingFeature`)
-3. **Commit** cambios (`git commit -m 'Add AmazingFeature'`)
-4. **Push** al branch (`git push origin feature/AmazingFeature`)
-5. **Abrir** Pull Request
-
-## 📄 **Licencia**
-
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
-
-## 📞 **Soporte**
-
-- 📧 **Email:** support@familypoints.com
-- 📚 **Docs:** http://localhost:3000/api-docs
-- 🐛 **Issues:** Crear issue en GitHub
+<!--
+README.md para Family Points - Aplicación Fullstack Angular + Node.js/Express + SQLite
+-->
+# 🏠 Family Points
+
+**Aplicación Fullstack para gestión de tareas familiares mediante sistema de puntos y recompensas.**
 
 ---
 
-## 🎉 **¡Aplicación Fullstack Completa y Funcional!**
+## 📋 Índice
 
-### ✅ **Estado del Proyecto:**
-- ✅ **Backend** - API REST completa con autenticación JWT
-- ✅ **Frontend** - Aplicación Angular responsiva
-- ✅ **Base de Datos** - SQLite con datos demo
-- ✅ **Documentación** - Swagger UI + README completo
-- ✅ **Seguridad** - Implementación robusta
-- ✅ **Testing** - Setup preparado
-
-### 🚀 **Para Empezar:**
-```bash
-npm run install:all && npm run dev
-```
-
-### 🔗 **Enlaces Rápidos:**
-- **App:** http://localhost:4200
-- **API:** http://localhost:3000/api  
-- **Docs:** http://localhost:3000/api-docs
+- [🏠 Family Points](#-family-points)
+  - [📋 Índice](#-índice)
+  - [🔎 Descripción](#-descripción)
+  - [🚀 Tecnologías](#-tecnologías)
+  - [📁 Estructura del proyecto](#-estructura-del-proyecto)
+  - [⚙️ Instalación](#️-instalación)
+  - [🛠️ Desarrollo](#️-desarrollo)
+  - [🏗️ Build \& Deploy](#️-build--deploy)
+  - [🧪 Datos de prueba](#-datos-de-prueba)
+  - [🔗 API](#-api)
+    - [🔐 Autenticación (`/api/auth`)](#-autenticación-apiauth)
+    - [👤 Usuarios (`/api/users`)](#-usuarios-apiusers)
+    - [👨‍👩‍👧‍👦 Familia (`/api/family`)](#-familia-apifamily)
+    - [📋 Tareas (`/api/tasks`)](#-tareas-apitasks)
+  - [🔒 Seguridad](#-seguridad)
+  - [🗄️ Base de datos](#️-base-de-datos)
+  - [🔍 Testing](#-testing)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+  - [🐛 Debugging](#-debugging)
+  - [🚢 Despliegue con Docker](#-despliegue-con-docker)
+  - [🤝 Contribuir](#-contribuir)
+  - [📄 Licencia](#-licencia)
+  - [📞 Soporte](#-soporte)
 
 ---
 
-**¡Happy coding!
+## 🔎 Descripción
+
+Family Points es una aplicación web que permite a las familias crear, asignar y completar tareas del hogar, acumulando puntos como recompensa. El sistema incluye autenticación de usuarios, gestión de miembros y un tablero de clasificación en tiempo real.
+
+---
+
+## 🚀 Tecnologías
+
+**Frontend**
+
+```bash
+Angular 20, TypeScript, SCSS
+RxJS, Angular CLI
+```
+
+**Backend**
+
+```bash
+Node.js 18+, Express 4
+SQLite3 (base de datos local)
+JWT, bcryptjs, helmet, cors, express-rate-limit
+Joi para validación de datos
+``` 
+
+**DevOps & Docs**
+
+- Swagger (swagger-jsdoc + swagger-ui-express)
+- Docker y Docker Compose
+- concurrently para comandos simultáneos
+
+---
+
+## 📁 Estructura del proyecto
+
 ```text
-src/
-├── index.js                 # 🚀 Servidor principal (Express + Swagger)
-├── controllers/             # 🎮 Lógica de negocio
-│   ├── authController.js    #   └── Autenticación
-│   ├── userController.js    #   └── Gestión de usuarios  
-│   ├── familyController.js  #   └── Miembros de familia
-│   └── taskController.js    #   └── Tareas y completadas
-├── models/                  # 🗄️ Modelos de datos (SQLite)
-│   ├── User.js             #   └── Usuarios y autenticación
-│   ├── FamilyMember.js     #   └── Miembros familiares
-│   ├── Task.js             #   └── Tareas del sistema
-│   ├── CompletedTask.js    #   └── Historial de tareas
-│   └── UserSession.js      #   └── Sesiones JWT
-├── routes/                 # 🛣️ Endpoints de la API
-│   ├── auth.js            #   └── /api/auth/*
-│   ├── users.js           #   └── /api/users/*
-│   ├── family.js          #   └── /api/family/*
-│   ├── tasks.js           #   └── /api/tasks/*
-│   └── index.js           #   └── Router principal
-├── middleware/            # ⚙️ Middlewares
-│   ├── auth.js           #   └── Autenticación JWT
-│   ├── validation.js     #   └── Validación Joi
-│   └── errorHandler.js   #   └── Manejo de errores
-├── validators/           # ✅ Esquemas de validación
-│   ├── authValidators.js
-│   ├── familyValidators.js
-│   └── taskValidators.js
-└── database/
-    └── init.js          # 🔧 Configuración SQLite
+family-points/
+├── backend/                # API Node.js + Express + SQLite
+│   ├── src/
+│   │   ├── controllers/    # Lógica de negocio
+│   │   ├── routes/         # Definición de endpoints
+│   │   ├── models/         # Definiciones de datos
+│   │   ├── middleware/     # Auth, validación, manejo de errores
+│   │   ├── validators/     # Esquemas Joi
+│   │   └── database/       # Inicialización y migraciones
+│   ├── tests/              # Jest + Supertest
+│   └── index.js            # Punto de entrada
+├── frontend/               # Aplicación Angular
+│   ├── src/app/            # Componentes, servicios y modelos
+│   ├── assets/             # Recursos estáticos
+│   ├── environments/       # Config variables Angular
+│   └── index.html          # Página principal
+├── docker-compose.yml      # Orquestación Docker
+├── package.json            # Scripts raiz e instalación
+database.sqlite            # Archivo SQLite (generado)
+└── README.md               # Documentación del proyecto
 ```
 
-## 📋 Requisitos
-- **npm** o **yarn**
+---
 
-## 🚀 Instalación y Uso
+## ⚙️ Instalación
 
-### 1. Clonar e instalar dependencias
+1. Clonar el repositorio:
+
+   ```bash
+   git clone <repo-url>
+   cd family-points
+   ```
+
+2. Instalar dependencias:
+
+   ```bash
+   npm install
+   npm run install:backend
+   npm run install:frontend
+   ```
+
+---
+
+## 🛠️ Desarrollo
 
 ```bash
-# Clonar el repositorio
-git clone <repository-url>
-cd family-points-backend
+# Backend en modo desarrollo (con reinicio automático)
+npm run start:backend
 
-# Instalar dependencias
-npm install
-```
+# Frontend en modo desarrollo
+ing serve --open
 
-### 2. Configurar variables de entorno
-
-```bash
-# Copiar archivo de ejemplo
-cp .env.example .env
-
-# Editar variables según necesidad
-vim .env
-```
-
-**Variables disponibles:**
-```env
-NODE_ENV=development
-PORT=3000
-DB_PATH=./database.sqlite
-JWT_SECRET=tu_jwt_secret_super_seguro_cambiame_en_produccion
-JWT_EXPIRES_IN=7d
-CREATE_DEMO_DATA=true
-```
-
-### 3. Iniciar el servidor
-
-```bash
-# Modo desarrollo
+# Ambos simultáneamente
 npm run dev
-
-# Modo producción  
-npm start
 ```
 
-### 4. Verificar funcionamiento
+---
+
+## 🏗️ Build & Deploy
 
 ```bash
-# Estado de la API
-curl http://localhost:3000/api/health
+# Compilar frontend para producción
+npm run build:frontend
 
-# Información de la API
-curl http://localhost:3000/api/info
-
-# Documentación Swagger
-open http://localhost:3000/api-docs
+# Compilar y desplegar backend
+npm run build:all
 ```
 
-## 🔗 API Endpoints
+---
+
+## 🧪 Datos de prueba
+
+- **Usuario demo**: `demo@familypoints.com` / `demo123`
+- **Miembros demo**:
+  - Papá (45 puntos)
+  - Mamá (38)
+  - Hermano (22)
+  - Hermana (15)
+- **Tareas demo**:
+  - Limpiar habitación (10 puntos)
+  - Lavar platos (8)
+  - Sacar basura (5)
+  - Hacer deberes (15)
+
+---
+
+## 🔗 API
 
 ### 🔐 Autenticación (`/api/auth`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| `POST` | `/register` | Registrar nuevo usuario | - |
-| `POST` | `/login` | Iniciar sesión | - |
-| `POST` | `/logout` | Cerrar sesión | ✅ |
-| `GET` | `/me` | Información del usuario actual | ✅ |
-| `PUT` | `/change-password` | Cambiar contraseña | ✅ |
-| `POST` | `/refresh` | Renovar token JWT | ✅ |
+| Método | Ruta        | Descripción             |
+| ------ | ----------- | ----------------------- |
+| POST   | `/register` | Registrar nuevo usuario |
+| POST   | `/login`    | Iniciar sesión          |
+| POST   | `/logout`   | Cerrar sesión           |
+| GET    | `/me`       | Obtener usuario actual  |
 
 ### 👤 Usuarios (`/api/users`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| `GET` | `/profile` | Obtener perfil del usuario | ✅ |
-| `PUT` | `/profile` | Actualizar perfil | ✅ |
-| `DELETE` | `/profile` | Eliminar cuenta | ✅ |
-| `GET` | `/stats` | Estadísticas del usuario | ✅ |
+| Método | Ruta       | Descripción           | Auth |
+| ------ | ---------- | --------------------- | ---- |
+| GET    | `/profile` | Obtener perfil        | ✅   |
+| PUT    | `/profile` | Actualizar perfil     | ✅   |
+| DELETE | `/profile` | Eliminar cuenta       | ✅   |
+| GET    | `/stats`   | Estadísticas usuario  | ✅   |
 
 ### 👨‍👩‍👧‍👦 Familia (`/api/family`)
 
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| `GET` | `/members` | Listar miembros de familia | ✅ |
-| `POST` | `/members` | Crear nuevo miembro | ✅ |
-| `GET` | `/members/:id` | Obtener miembro específico | ✅ |
-| `PUT` | `/members/:id` | Actualizar miembro | ✅ |
-| `DELETE` | `/members/:id` | Eliminar miembro | ✅ |
-| `GET` | `/leaderboard` | Tabla de clasificación | ✅ |
-| `POST` | `/members/:id/points/reset` | Reiniciar puntos | ✅ |
+| Método | Ruta               | Descripción         | Auth |
+| ------ | ------------------ | ------------------- | ---- |
+| GET    | `/members`         | Listar miembros     | ✅   |
+| POST   | `/members`         | Crear miembro       | ✅   |
+| PUT    | `/members/:id`     | Actualizar miembro  | ✅   |
+| DELETE | `/members/:id`     | Eliminar miembro    | ✅   |
+| GET    | `/leaderboard`     | Tabla de clasificación | ✅ |
 
 ### 📋 Tareas (`/api/tasks`)
+
+| Método | Ruta               | Descripción            | Auth |
+| ------ | ------------------ | ---------------------- | ---- |
+| GET    | `/`                | Listar tareas          | ✅   |
+| POST   | `/`                | Crear tarea            | ✅   |
+| POST   | `/:id/complete`    | Completar tarea        | ✅   |
+| GET    | `/completed`       | Historial completadas  | ✅   |
+
+---
+
+## 🔒 Seguridad
+
+- Autenticación con JWT y expiración configurable
+- Hash de contraseñas con bcryptjs
+- Cabeceras seguras con Helmet
+- CORS y rate limiting para evitar abuso
+- Validación de entradas con Joi
+
+---
+
+## 🗄️ Base de datos
+
+El proyecto usa SQLite local (`database.sqlite`) con migraciones automáticas.
+
+**Tablas principales**:
+
+- `users`
+- `family_members`
+- `tasks`
+- `completed_tasks`
+- `user_sessions`
+
+---
+
+## 🔍 Testing
+
+### Backend
+
+```bash
+cd backend
+npm test           # Ejecutar tests con Jest
+npm run coverage   # Ver cobertura
+```
+
+### Frontend
+
+```bash
+cd frontend
+ng test            # Tests unitarios
+ng e2e             # Tests end-to-end
+```
+
+---
+
+## 🐛 Debugging
+
+```bash
+npm run start:backend          # Backend con logs detallados
+npm run start:frontend -- --open # Frontend con DevTools abierto
+```
+
+---
+
+## 🚢 Despliegue con Docker
+
+```bash
+docker-compose up --build
+```
+
+---
+
+## 🤝 Contribuir
+
+1. Haz fork del repositorio
+2. Crea una rama de feature: `git checkout -b feature/mi-feature`
+3. Realiza cambios y commitea: `git commit -m "feat: descripción"`
+4. Envía tu rama: `git push origin feature/mi-feature`
+5. Abre Pull Request
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta [LICENSE](LICENSE) para más detalles.
+
+---
+
+## 📞 Soporte
+
+- Email: support@familypoints.com
+- Swagger UI: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)

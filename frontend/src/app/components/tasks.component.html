@@ -130,8 +130,8 @@
   </div>
 
   <!-- Modal para completar tarea -->
-  <div class="modal-overlay" *ngIf="showCompleteModal" (click)="closeCompleteDialog()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
+  <div class="modal-overlay" *ngIf="showCompleteModal" (click)="closeCompleteDialog()" (keydown.Escape)="closeCompleteDialog()" (keydown.Enter)="closeCompleteDialog()">
+    <div class="modal-content" (click)="$event.stopPropagation()" (keydown.Escape)="closeCompleteDialog()">
       <div class="modal-header">
         <h3>✅ Completar Tarea</h3>
         <button class="btn-close" (click)="closeCompleteDialog()">❌</button>
