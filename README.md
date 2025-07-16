@@ -1,6 +1,7 @@
+
 # 🏠 Family Points - Fullstack Application
 
-**Sistema completo de gestión de tareas familiares con puntos de recompensa**
+## Sistema completo de gestión de tareas familiares con puntos de recompensa
 
 Aplicación fullstack desarrollada con **Angular** (frontend) y **Node.js + Express + SQLite** (backend) para gestionar tareas familiares, miembros de familia, puntos de recompensa y sistema de autenticación.
 
@@ -11,6 +12,7 @@ Family Points es una aplicación web completa que permite a las familias gestion
 ## ✨ Características
 
 ### 🖥️ **Frontend (Angular)**
+
 - 🎨 **UI Moderna** - Interfaz responsiva y atractiva
 - 🔐 **Autenticación** - Login/registro con guards
 - 👨‍👩‍👧‍👦 **Gestión de Familia** - CRUD de miembros familiares
@@ -20,6 +22,7 @@ Family Points es una aplicación web completa que permite a las familias gestion
 - ⚡ **Tiempo Real** - Actualizaciones automáticas
 
 ### 🔧 **Backend (Node.js + Express)**
+
 - 🔐 **API REST** - Endpoints completos con autenticación JWT
 - 📊 **Base de datos SQLite** - Persistencia ligera con relaciones FK
 - 📚 **Documentación Swagger** - API docs automática
@@ -29,7 +32,7 @@ Family Points es una aplicación web completa que permite a las familias gestion
 
 ## 📁 Estructura del Proyecto
 
-```
+```text
 family-points/
 ├── backend/                 # 🔧 API Node.js + Express + SQLite
 │   ├── src/
@@ -57,92 +60,27 @@ family-points/
 ## 🚀 Inicio Rápido
 
 ### 📋 **Requisitos**
-- **Node.js** >= 18.0.0
-- **Angular CLI** >= 17.0.0
-- **npm** o **yarn**
 
-### ⚡ **Instalación Completa**
+## 🔧 Instalación
 
-```bash
-# Clonar el repositorio
-git clone <repository-url>
-cd family-points
-
-# Instalar dependencias de ambos proyectos
-npm run install:all
-
-# Ejecutar ambos proyectos simultáneamente
-npm run dev
-```
-
-### 🔧 **Instalación Manual (Paso a Paso)**
-
-#### 1. **Backend (API)**
-```bash
-# Instalar dependencias del backend
-cd backend
-npm install
-
-# Configurar variables de entorno
-cp .env.example .env
-# Editar .env según necesidades
-
-# Iniciar servidor backend
-npm start
-```
-
-#### 2. **Frontend (Angular)**
-```bash
-# Instalar dependencias del frontend
-cd frontend
-npm install
-
-# Iniciar servidor de desarrollo
-ng serve
-```
-
-## 🌐 **URLs de Acceso**
-
-| Servicio | URL | Descripción |
-|----------|-----|-------------|
-| **Frontend** | http://localhost:4200 | 🖥️ Aplicación web principal |
-| **Backend API** | http://localhost:3000/api | 🔧 API REST |
-| **Swagger Docs** | http://localhost:3000/api-docs | 📚 Documentación interactiva |
-| **Health Check** | http://localhost:3000/api/health | ❤️ Estado de la API |
-
-## 📋 **Scripts Disponibles**
-
-```bash
-# 🔧 Instalación
 npm run install:backend     # Instalar solo backend
 npm run install:frontend    # Instalar solo frontend  
 npm run install:all         # Instalar ambos proyectos
 
-# 🚀 Desarrollo
+## 🚀 Desarrollo
+
 npm run start:backend       # Ejecutar solo backend
 npm run start:frontend      # Ejecutar solo frontend
 npm run dev                 # Ejecutar ambos simultáneamente
 
-# 🏗️ Build & Deploy
+## 🏗️ Build & Deploy
+
 npm run build:frontend      # Build de producción Angular
 npm run build:all           # Build completo
 
-# 🧪 Testing
-npm run test:backend        # Tests del backend
-npm run test:frontend       # Tests del frontend
-npm run test:all            # Tests de ambos proyectos
-
-# 🧹 Limpieza
-npm run clean              # Limpiar node_modules y builds
 ```
 
 ## 🧪 **Datos de Prueba**
-
-El sistema incluye datos demo preconfigurados para pruebas:
-
-### 👤 **Usuario Demo**
-- **Username:** `demo1`
-- **Email:** `familia@demo.com`
 - **Password:** `demo123`
 - **Familia:** Familia Demo 👨‍👩‍👧‍👦
 
@@ -222,6 +160,7 @@ npm run test:coverage     # Tests con coverage
 ```
 
 ### 🖥️ **Frontend Testing**
+
 ```bash
 cd frontend
 ng test                   # Tests unitarios
@@ -231,18 +170,21 @@ ng e2e                    # Tests end-to-end
 ## 🐛 **Debugging**
 
 ### 📊 **Logs Backend**
+
 ```bash
 cd backend
 npm run dev              # Modo desarrollo con logs detallados
 ```
 
 ### 🔍 **Debug Frontend**
+
 ```bash
 cd frontend
 ng serve --open         # Abrir con DevTools
 ```
 
 ### 🛠️ **Comandos Útiles**
+
 ```bash
 # Ver base de datos
 sqlite3 backend/database.sqlite ".tables"
@@ -259,6 +201,7 @@ cd frontend && ng build --configuration production
 ### 🌍 **Producción**
 
 #### Backend
+
 ```bash
 cd backend
 npm run build
@@ -266,6 +209,7 @@ npm start
 ```
 
 #### Frontend
+
 ```bash
 cd frontend
 ng build --configuration production
@@ -273,6 +217,7 @@ ng build --configuration production
 ```
 
 ### 🐳 **Docker (Próximamente)**
+
 ```yaml
 # docker-compose.yml
 version: '3.8'
@@ -310,6 +255,7 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 ## 🎉 **¡Aplicación Fullstack Completa y Funcional!**
 
 ### ✅ **Estado del Proyecto:**
+
 - ✅ **Backend** - API REST completa con autenticación JWT
 - ✅ **Frontend** - Aplicación Angular responsiva
 - ✅ **Base de Datos** - SQLite con datos demo
@@ -318,11 +264,13 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 - ✅ **Testing** - Setup preparado
 
 ### 🚀 **Para Empezar:**
+
 ```bash
 npm run install:all && npm run dev
 ```
 
 ### 🔗 **Enlaces Rápidos:**
+
 - **App:** http://localhost:4200
 - **API:** http://localhost:3000/api  
 - **Docs:** http://localhost:3000/api-docs
@@ -330,6 +278,7 @@ npm run install:all && npm run dev
 ---
 
 **¡Happy coding!
+
 ```text
 src/
 ├── index.js                 # 🚀 Servidor principal (Express + Swagger)
@@ -363,6 +312,7 @@ src/
 ```
 
 ## 📋 Requisitos
+
 - **npm** o **yarn**
 
 ## 🚀 Instalación y Uso
@@ -389,6 +339,7 @@ vim .env
 ```
 
 **Variables disponibles:**
+
 ```env
 NODE_ENV=development
 PORT=3000
@@ -404,7 +355,7 @@ CREATE_DEMO_DATA=true
 # Modo desarrollo
 npm run dev
 
-# Modo producción  
+# Modo producción
 npm start
 ```
 
