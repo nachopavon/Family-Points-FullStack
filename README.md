@@ -63,22 +63,28 @@ family-points/
 
 ## 🔧 Instalación
 
+```bash
 npm run install:backend     # Instalar solo backend
 npm run install:frontend    # Instalar solo frontend  
 npm run install:all         # Instalar ambos proyectos
+```
 
 ## 🚀 Desarrollo
 
+```bash
 npm run start:backend       # Ejecutar solo backend
 npm run start:frontend      # Ejecutar solo frontend
 npm run dev                 # Ejecutar ambos simultáneamente
+```
 
 ## 🏗️ Build & Deploy
 
+```bash
 npm run build:frontend      # Build de producción Angular
 npm run build:all           # Build completo
-
 ```
+
+```text
 
 ## 🧪 **Datos de Prueba**
 - **Password:** `demo123`
@@ -123,7 +129,9 @@ npm run build:all           # Build completo
 | `POST` | `/:id/complete` | Completar tarea |
 | `GET` | `/completed` | Historial |
 
-> 📚 **Documentación completa:** http://localhost:3000/api-docs
+```
+
+> 📚 **Documentación completa:** [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 ## 🛡️ **Seguridad Implementada**
 
@@ -139,6 +147,7 @@ npm run build:all           # Build completo
 ## 🗄️ **Base de Datos (SQLite)**
 
 ### 📊 **Esquema de Tablas**
+
 - 👤 **users** - Usuarios y autenticación
 - 👨‍👩‍👧‍👦 **family_members** - Miembros familiares
 - 📋 **tasks** - Tareas del sistema
@@ -146,6 +155,7 @@ npm run build:all           # Build completo
 - 🔐 **user_sessions** - Sesiones JWT
 
 ### 🔗 **Relaciones**
+
 - Un usuario puede tener múltiples miembros de familia
 - Un miembro puede completar múltiples tareas
 - Las tareas completadas mantienen el historial
@@ -153,6 +163,7 @@ npm run build:all           # Build completo
 ## 🧪 **Testing**
 
 ### 🔧 **Backend Testing**
+
 ```bash
 cd backend
 npm test                   # Ejecutar tests
@@ -186,6 +197,7 @@ ng serve --open         # Abrir con DevTools
 ### 🛠️ **Comandos Útiles**
 
 ```bash
+```bash
 # Ver base de datos
 sqlite3 backend/database.sqlite ".tables"
 
@@ -194,6 +206,9 @@ curl http://localhost:3000/api/health
 
 # Verificar build Angular
 cd frontend && ng build --configuration production
+
+```bash
+
 ```
 
 ## 🚀 **Deployment**
@@ -219,6 +234,7 @@ ng build --configuration production
 ### 🐳 **Docker (Próximamente)**
 
 ```yaml
+```yaml
 # docker-compose.yml
 version: '3.8'
 services:
@@ -231,6 +247,8 @@ services:
     ports:
       - "4200:80"
 ```
+
+```text
 
 ## 🤝 **Contribuir**
 
@@ -247,7 +265,7 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 ## 📞 **Soporte**
 
 - 📧 **Email:** support@familypoints.com
-- 📚 **Docs:** http://localhost:3000/api-docs
+-- 📚 **Docs:** [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 - 🐛 **Issues:** Crear issue en GitHub
 
 ---
@@ -271,9 +289,9 @@ npm run install:all && npm run dev
 
 ### 🔗 **Enlaces Rápidos:**
 
-- **App:** http://localhost:4200
-- **API:** http://localhost:3000/api  
-- **Docs:** http://localhost:3000/api-docs
+- **App:** [http://localhost:4200](http://localhost:4200)
+- **API:** [http://localhost:3000/api](http://localhost:3000/api)
+- **Docs:** [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 ---
 
