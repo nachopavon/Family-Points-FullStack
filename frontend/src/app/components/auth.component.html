@@ -1,46 +1,59 @@
 <div class="auth-container">
-  <div class="auth-content" role="main">
+  <main class="auth-content">
     <!-- Panel izquierdo - Bienvenida -->
-    <div class="welcome-panel" role="complementary" aria-label="Información de la aplicación">
+    <aside class="welcome-panel" aria-label="Información de la aplicación">
       <div class="welcome-content">
         <div class="logo-section">
-          <div class="logo" role="img" aria-label="Trofeo, icono de Family Points">🏆</div>
+          <img class="logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E" alt="Trofeo, icono de Family Points" style="width: 2em; height: 2em;" />
           <h1 class="app-title">Family Points</h1>
           <p class="app-subtitle">Planifica actividades familiares y gestiona puntos por tareas cotidianas</p>
         </div>
 
-        <div class="illustration" role="img" aria-label="Ilustración de una familia">
+        <figure class="illustration" aria-label="Ilustración de una familia">
+          <figcaption class="sr-only">Ilustración de una familia</figcaption>
           <div class="family-icons">
-            <div class="family-member dad" role="img" aria-label="Papá">👨</div>
-            <div class="family-member mom" role="img" aria-label="Mamá">👩</div>
-            <div class="family-member kid" role="img" aria-label="Hija">👧</div>
+            <span class="family-member dad">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%91%A8%3C/text%3E%3C/svg%3E" alt="Papá" style="width: 2em; height: 2em;" />
+            </span>
+            <span class="family-member mom">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%91%A9%3C/text%3E%3C/svg%3E" alt="Mamá" style="width: 2em; height: 2em;" />
+            </span>
+            <span class="family-member kid">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%91%A7%3C/text%3E%3C/svg%3E" alt="Hija" style="width: 2em; height: 2em;" />
+            </span>
           </div>
           <div class="floating-elements" aria-hidden="true">
-            <div class="floating-star star1">⭐</div>
-            <div class="floating-star star2">✨</div>
-            <div class="floating-star star3">🌟</div>
+            <span class="floating-star star1">⭐</span>
+            <span class="floating-star star2">✨</span>
+            <span class="floating-star star3">🌟</span>
           </div>
-        </div>
+        </figure>
 
         <div class="features">
           <div class="feature">
-            <span class="feature-icon" role="img" aria-label="Calendario">📅</span>
+            <span class="feature-icon">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%93%85%3C/text%3E%3C/svg%3E" alt="Calendario" style="width: 1.5em; height: 1.5em;" />
+            </span>
             <span>Planifica eventos familiares</span>
           </div>
           <div class="feature">
-            <span class="feature-icon" role="img" aria-label="Objetivo">🎯</span>
+            <span class="feature-icon">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E" alt="Objetivo" style="width: 1.5em; height: 1.5em;" />
+            </span>
             <span>Asigna tareas y puntos</span>
           </div>
           <div class="feature">
-            <span class="feature-icon" role="img" aria-label="Trofeo">🏆</span>
+            <span class="feature-icon">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext x='0' y='28' font-size='32'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E" alt="Trofeo" style="width: 1.5em; height: 1.5em;" />
+            </span>
             <span>Compite en familia</span>
           </div>
         </div>
       </div>
-    </div>
+    </aside>
 
     <!-- Panel derecho - Formularios -->
-    <div class="form-panel">
+    <section class="form-panel">
       <div class="form-container">
         <header class="form-header">
           <h2 id="form-title">{{ currentTab === 'login' ? '¡Bienvenido de vuelta!' : '¡Únete a la diversión!' }}</h2>
@@ -91,7 +104,7 @@
             <div class="form-fields">
               <div class="form-group">
                 <label for="login-username">
-                  <span role="img" aria-label="Usuario">👤</span> Usuario
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E" alt="Usuario" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Usuario
                 </label>
                 <input
                   id="login-username"
@@ -110,7 +123,7 @@
 
               <div class="form-group">
                 <label for="login-password">
-                  <span role="img" aria-label="Contraseña">🔒</span> Contraseña
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%94%92%3C/text%3E%3C/svg%3E" alt="Contraseña" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Contraseña
                 </label>
                 <input
                   id="login-password"
@@ -134,10 +147,10 @@
               [disabled]="isLoading"
               [attr.aria-describedby]="isLoading ? 'loading-message' : null">
               <span *ngIf="isLoading" id="loading-message">
-                <span role="img" aria-label="Cargando">🔄</span> Iniciando sesión...
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%94%84%3C/text%3E%3C/svg%3E" alt="Cargando" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Iniciando sesión...
               </span>
               <span *ngIf="!isLoading">
-                <span role="img" aria-label="Cohete">🚀</span> Iniciar Sesión
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E" alt="Cohete" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Iniciar Sesión
               </span>
             </button>
           </form>
@@ -156,7 +169,7 @@
             <div class="form-fields">
               <div class="form-group">
                 <label for="register-username">
-                  <span role="img" aria-label="Usuario">👤</span> Usuario
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E" alt="Usuario" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Usuario
                 </label>
                 <input
                   id="register-username"
@@ -175,7 +188,7 @@
 
               <div class="form-group">
                 <label for="register-email">
-                  <span role="img" aria-label="Email">📧</span> Email
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%93%A7%3C/text%3E%3C/svg%3E" alt="Email" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Email
                 </label>
                 <input
                   id="register-email"
@@ -194,7 +207,7 @@
 
               <div class="form-group">
                 <label for="register-family">
-                  <span role="img" aria-label="Casa">🏠</span> Nombre de tu Familia
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%8F%A0%3C/text%3E%3C/svg%3E" alt="Casa" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Nombre de tu Familia
                 </label>
                 <input
                   id="register-family"
@@ -213,22 +226,21 @@
               <div class="form-group">
                 <fieldset>
                   <legend>
-                    <span role="img" aria-label="Máscara">🎭</span> Elige tu Avatar
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%8E%AD%3C/text%3E%3C/svg%3E" alt="Máscara" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Elige tu Avatar
                   </legend>
-                  <div class="avatar-selector" role="radiogroup" aria-describedby="avatar-help">
-                    <button
-                      type="button"
-                      *ngFor="let avatar of avatarOptions; trackBy: trackByAvatar"
-                      class="avatar-option"
-                      role="radio"
-                      [class.selected]="registerData.avatar === avatar"
-                      [attr.aria-checked]="registerData.avatar === avatar"
-                      [attr.aria-label]="'Avatar ' + avatar"
-                      (click)="selectAvatar(avatar)"
-                      (keydown.Enter)="selectAvatar(avatar)"
-                      (keydown.Space)="selectAvatar(avatar)">
-                      {{avatar}}
-                    </button>
+                  <div class="avatar-selector" aria-describedby="avatar-help">
+                    <ng-container *ngFor="let avatar of avatarOptions; trackBy: trackByAvatar">
+                      <label class="avatar-option" [class.selected]="registerData.avatar === avatar">
+                        <input
+                          type="radio"
+                          name="avatar"
+                          [value]="avatar"
+                          [(ngModel)]="registerData.avatar"
+                          [attr.aria-label]="'Avatar ' + avatar"
+                        />
+                        <span aria-hidden="true">{{avatar}}</span>
+                      </label>
+                    </ng-container>
                   </div>
                   <div id="avatar-help" class="sr-only">
                     Selecciona un emoji que te represente en la aplicación
@@ -238,7 +250,7 @@
 
               <div class="form-group">
                 <label for="register-password">
-                  <span role="img" aria-label="Contraseña">🔒</span> Contraseña
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%94%92%3C/text%3E%3C/svg%3E" alt="Contraseña" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Contraseña
                 </label>
                 <input
                   id="register-password"
@@ -262,10 +274,10 @@
               [disabled]="isLoading"
               [attr.aria-describedby]="isLoading ? 'loading-message-register' : null">
               <span *ngIf="isLoading" id="loading-message-register">
-                <span role="img" aria-label="Cargando">🔄</span> Creando cuenta...
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%F0%9F%94%84%3C/text%3E%3C/svg%3E" alt="Cargando" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Creando cuenta...
               </span>
               <span *ngIf="!isLoading">
-                <span role="img" aria-label="Estrella">✨</span> Crear Cuenta
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext x='0' y='20' font-size='24'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E" alt="Estrella" style="width:1.2em;height:1.2em;vertical-align:middle;" /> Crear Cuenta
               </span>
             </button>
           </form>
@@ -278,31 +290,31 @@
           role="alert"
           aria-live="polite"
           id="error-alert">
-          <span role="img" aria-label="Advertencia">⚠️</span> {{errorMessage}}
+          <span aria-hidden="true">⚠️</span> {{errorMessage}}
         </div>
 
         <!-- Usuarios de demo -->
         <section class="demo-section" *ngIf="currentTab === 'login'" aria-labelledby="demo-title">
           <h3 id="demo-title">
-            <span role="img" aria-label="Grupo">👥</span> Familias de Demostración
+            <span aria-hidden="true">👥</span> Familias de Demostración
           </h3>
           <p>Prueba con estas familias de ejemplo:</p>
-          <div class="demo-users" role="list">
-            <button
-              type="button"
-              *ngFor="let user of demoUsers; trackBy: trackByUser"
-              class="demo-user-btn"
-              role="listitem"
-              [attr.aria-label]="'Iniciar sesión como ' + user.familyName"
-              (click)="loginAsDemo(user)">
-              <span class="demo-avatar" [attr.aria-label]="'Avatar ' + user.avatar">{{user.avatar}}</span>
-              <span class="demo-name">{{user.familyName}}</span>
-            </button>
-          </div>
+          <ul class="demo-users">
+            <li *ngFor="let user of demoUsers; trackBy: trackByUser">
+              <button
+                type="button"
+                class="demo-user-btn"
+                [attr.aria-label]="'Iniciar sesión como ' + user.familyName"
+                (click)="loginAsDemo(user)">
+                <span class="demo-avatar" [attr.aria-label]="'Avatar ' + user.avatar">{{user.avatar}}</span>
+                <span class="demo-name">{{user.familyName}}</span>
+              </button>
+            </li>
+          </ul>
         </section>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </div>
 
 <!-- Clase utilitaria para lectores de pantalla -->
